@@ -1,2 +1,2 @@
 # Server
-NodeJS server that runs in background of host PC. Communicates via websockets with client applications, and controls traffic to Arduino.
+Node server that runs on **one** of the kiosk PCs. Communicates via websockets with client interfaces. Controls traffic to Arduino.
