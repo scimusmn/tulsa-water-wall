@@ -15,10 +15,10 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-sass',
       options: {
-        data: '@import "src/styles/variables";',
-        includePaths: [
-          'src/components',
-        ],
+        additionalData: '@import "src/styles/variables";',
+        sassOptions: {
+          includePaths: ['src/components'],
+        },
       },
     },
     'gatsby-plugin-react-helmet',
@@ -32,12 +32,13 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: 'app-default',
-        short_name: 'app',
+        name: 'Tulsa Water Wall - Drawing',
+        short_name: 'Water Wall',
         start_url: '/',
-        background_color: '#ffffff',
-        theme_color: '#000000',
-        display: 'minimal-ui',
+        background_color: '#004a87',
+        theme_color: '#00a9e0',
+        display: 'standalone',
+        icon: 'src/images/icon.png',
       },
     },
   ],
