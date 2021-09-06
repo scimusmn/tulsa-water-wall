@@ -11,6 +11,7 @@ module.exports = {
   ignorePatterns: [
     'public/*',
     'src/Arduino/arduino-base',
+    'postcss.config.js',
     'src/html.js',
   ],
   rules: {
