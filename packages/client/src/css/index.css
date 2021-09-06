@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/*Tulsa Discovery Lab default font*/
+/* Tulsa Discovery Lab default font */
 @font-face {
   font-family: 'Brandon Grotesque Black';
   src: local('Brandon Grotesque Black'), url(fonts/brandon-grotesque-black.woff2) format('woff2');
@@ -12,7 +12,7 @@
 #root {
   --blue: #00447d;
   --blue-light: #4ba6de;
-  --white: #FFF;
+  --white: #fff;
 }
 
 @layer base {
