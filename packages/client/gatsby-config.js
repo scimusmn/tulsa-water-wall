@@ -12,16 +12,8 @@ module.exports = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     'gatsby-plugin-eslint',
-    {
-      resolve: 'gatsby-plugin-sass',
-      options: {
-        additionalData: '@import "src/styles/variables";',
-        sassOptions: {
-          includePaths: ['src/components'],
-        },
-      },
-    },
     'gatsby-plugin-react-helmet',
+    'gatsby-plugin-postcss',
     {
       resolve: 'gatsby-source-filesystem',
       options: {

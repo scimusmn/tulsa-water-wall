@@ -2,11 +2,11 @@
 // Don't require a default export. Gatsby's API can't support it here.
 import PropTypes from 'prop-types';
 import React from 'react';
+import './src/css/index.css';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '@styles/base.scss';
-
-export const wrapRootElement = ({ element }) => <>{element}</>;
+export const wrapRootElement = ({ element }) => (
+  <div className="root overflow-hidden">{element}</div>
+);
 
 wrapRootElement.propTypes = {
   element: PropTypes.element.isRequired,
