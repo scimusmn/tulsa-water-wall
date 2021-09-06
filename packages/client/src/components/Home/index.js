@@ -5,8 +5,7 @@ const Home = () => (
   <Container>
     <Row>
       <Col>
-        <h1>Home</h1>
-        <p>Start your app here.</p>
+        <h1>Design the Waterwall</h1>
       </Col>
     </Row>
   </Container>
