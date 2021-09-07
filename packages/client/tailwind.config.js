@@ -9,6 +9,9 @@ module.exports = {
         light: 'var(--blue-light)',
         DEFAULT: 'var(--blue)',
       },
+      yellow: {
+        DEFAULT: 'var(--yellow)',
+      },
     },
     variants: {},
     plugins: [],
