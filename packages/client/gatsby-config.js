@@ -14,6 +14,14 @@ module.exports = {
     'gatsby-transformer-sharp',
     'gatsby-plugin-eslint',
     'gatsby-plugin-react-helmet',
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: /images/,
+        },
+      },
+    },
     'gatsby-plugin-postcss',
     {
       resolve: 'gatsby-source-filesystem',
@@ -31,7 +39,7 @@ module.exports = {
         background_color: '#004a87',
         theme_color: '#00a9e0',
         display: 'standalone',
-        icon: 'src/images/icon.png',
+        icon: 'src/images/favicon.png',
       },
     },
   ],

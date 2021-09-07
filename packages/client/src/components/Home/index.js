@@ -1,18 +1,22 @@
 import React from 'react';
-import { StaticImage } from 'gatsby-plugin-image';
+import IconDraw from '../../images/icon-draw.svg';
+import IconErase from '../../images/icon-erase.svg';
+import IconFlip from '../../images/icon-flip.svg';
+import IconTrash from '../../images/icon-trash.svg';
+import IconArrowUp from '../../images/icon-arrow-up.svg';
 
 const Home = () => (
   <div className="flex">
     <div className="w-2/12">
       <div className="flex flex-col h-screen justify-center">
         <div>
-          <div className="text-4xl box-border text-center border-2 rounded-lg m-3 p-3 text-center text-white">
-            <StaticImage src="https://picsum.photos/seed/draw/200" alt="Lorem" />
+          <div className="text-4xl box-border text-center border-2 rounded-2xl m-3 p-3 text-center text-white">
+            <IconDraw />
             <br />
             Draw
           </div>
-          <div className="text-4xl box-border text-center border-2 rounded-lg m-3 p-3 text-center text-white">
-            <StaticImage src="https://picsum.photos/seed/erase/200" alt="Lorem" />
+          <div className="text-4xl box-border text-center border-2 rounded-2xl m-3 p-3 text-center text-white">
+            <IconErase />
             <br />
             Erase
           </div>
@@ -27,19 +31,16 @@ const Home = () => (
     <div className="w-2/12">
       <div className="flex flex-col h-screen justify-center">
         <div>
-          <div className="text-4xl box-border text-center border-2 rounded-lg m-3 p-3 text-center text-white">
-            <StaticImage src="https://picsum.photos/seed/flip/200/100" alt="Lorem" />
-            <br />
+          <div className="text-4xl box-border text-left border-2 rounded-2xl m-3 p-3 text-white">
+            <IconFlip className="float-left mr-4" style={{ height: '45px' }} />
             Flip
           </div>
-          <div className="text-4xl box-border text-center border-2 rounded-lg m-3 p-3 text-center text-white">
-            <StaticImage src="https://picsum.photos/seed/clear/200/100" alt="Lorem" />
-            <br />
+          <div className="text-4xl box-border text-left border-2 rounded-2xl m-3 p-3 text-white">
+            <IconTrash className="float-left mr-4" style={{ height: '45px' }} />
             Clear
           </div>
-          <div className="text-4xl box-border text-center border-2 rounded-lg m-3 p-3 text-center text-white">
-            <StaticImage src="https://picsum.photos/seed/share/200/100" alt="Lorem" />
-            <br />
+          <div className="text-4xl box-border text-left border-2 rounded-2xl m-3 p-3 text-white">
+            <IconArrowUp className="float-left mr-4" style={{ height: '45px' }} />
             Share
           </div>
         </div>
