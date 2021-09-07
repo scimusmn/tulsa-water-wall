@@ -8,17 +8,17 @@ import IconArrowUp from '../../images/icon-arrow-up.svg';
 const Home = () => (
   <div className="flex">
     <div className="w-2/12">
-      <div className="flex flex-col h-screen justify-center">
-        <div>
-          <div className="text-4xl box-border text-center border-2 rounded-2xl m-3 p-3 text-center text-white">
-            <IconDraw />
-            <br />
-            Draw
-          </div>
-          <div className="text-4xl box-border text-center border-2 rounded-2xl m-3 p-3 text-center text-white">
-            <IconErase />
-            <br />
-            Erase
+      <div className="mx-12">
+        <div className="flex flex-col h-screen justify-center">
+          <div>
+            <div className="shadow-2xl text-4xl box-border text-center border-2 rounded-2xl my-8 mx-3 p-3 text-center text-white">
+              <IconDraw />
+              Draw
+            </div>
+            <div className="shadow-2xl text-4xl box-border text-center border-2 rounded-2xl my-8 mx-3 p-3 text-center text-white">
+              <IconErase />
+              Erase
+            </div>
           </div>
         </div>
       </div>
@@ -28,21 +28,24 @@ const Home = () => (
         <h1 className="text-white text-center">Design the Waterwall</h1>
       </div>
     </div>
-    <div className="w-2/12">
-      <div className="flex flex-col h-screen justify-center">
-        <div>
-          <div className="text-4xl box-border text-left border-2 rounded-2xl m-3 p-3 text-white">
-            <IconFlip className="float-left mr-4" style={{ height: '45px' }} />
+    <div className="w-2/12 relative">
+      <div className="mx-12 relative">
+        <div className="flex flex-col justify-center h-screen">
+          <div className="text-4xl text-center border-2 rounded-2xl my-3 mt-28 p-3 text-white relative">
+            <IconFlip className="absolute left-5 bottom-2" style={{ height: '45px' }} />
             Flip
           </div>
-          <div className="text-4xl box-border text-left border-2 rounded-2xl m-3 p-3 text-white">
-            <IconTrash className="float-left mr-4" style={{ height: '45px' }} />
+          <div className="text-4xl text-center border-2 rounded-2xl my-3 p-3 text-white relative">
+            <IconTrash className="absolute left-5 bottom-2" style={{ height: '45px' }} />
             Clear
           </div>
-          <div className="text-4xl box-border text-left border-2 rounded-2xl m-3 p-3 text-white">
-            <IconArrowUp className="float-left mr-4" style={{ height: '45px' }} />
-            Share
-          </div>
+        </div>
+        <div className="absolute w-full bottom-20 text-4xl text-center border-2 rounded-2xl p-3 text-blue bg-white">
+          <IconArrowUp
+            className="absolute left-5 bottom-2 float-left mr-4"
+            style={{ height: '45px' }}
+          />
+          Share
         </div>
       </div>
     </div>
