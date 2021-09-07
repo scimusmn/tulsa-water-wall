@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import './src/css/index.css';
 
-export const wrapRootElement = ({ element }) => (
-  <div className="root overflow-hidden">{element}</div>
-);
+export const wrapRootElement = ({ element }) => <>{element}</>;
 
 wrapRootElement.propTypes = {
   element: PropTypes.element.isRequired,
