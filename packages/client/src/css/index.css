@@ -17,6 +17,11 @@
 }
 
 @layer base {
+  body,
+  html {
+    height: 100%;
+  }
+
   body {
     background: var(--blue);
     font-family: "Brandon Grotesque Black", sans-serif;
