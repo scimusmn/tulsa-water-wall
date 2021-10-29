@@ -3,20 +3,28 @@ import PropTypes from 'prop-types';
 // import DrawRow from '@components/DrawingArea/DrawRow';
 
 const DrawingCanvas = (props) => {
-  const { width, height } = props;
+  // eslint-disable-next-line no-unused-vars
+  const { pixelsWide, pixelsTall, pixelMargin } = props;
   return (
     <div className="flex flex-col h-full overflow-hidden">
       {
-        [...Array(height)].map((e, i) => {
+        [...Array(pixelsTall)].map((e, i) => {
           const key = `special${i}`;
-          const isOdd = (num) => num % 2;
+          const screenHeight = 1080;
+          const drawingHeight = screenHeight * (5 / 6);
+          const rowHeight = (((drawingHeight - (pixelMargin * pixelsTall)) / pixelsTall));
+          const divStyle = {
+            background: 'red',
+            marginBottom: `${pixelMargin}px`,
+            height: `${rowHeight}px`,
+            lineHeight: `${rowHeight}px`,
+          };
           return (
-            <div className="overflow-hidden bg-blue-light mb-1" key={key}>
-              {isOdd}
-              {' '}
-              -
-              {' '}
-              {width}
+            <div
+              style={divStyle}
+              key={key}
+            >
+              {i + 1}
             </div>
           );
         })
@@ -26,13 +34,9 @@ const DrawingCanvas = (props) => {
 };
 
 DrawingCanvas.propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
-};
-
-DrawingCanvas.defaultProps = {
-  width: 120,
-  height: 80,
+  pixelsWide: PropTypes.number.isRequired,
+  pixelsTall: PropTypes.number.isRequired,
+  pixelMargin: PropTypes.number.isRequired,
 };
 
 export default DrawingCanvas;
