@@ -11,9 +11,9 @@ function DrawPixel() {
     <div
       className={`bg-${(active
         ? 'white'
-        : 'blue-light')} flex-grow block bg-blue-500 hover:bg-blue-700 text-white font-bold mx-1 py-2 px-4 rounded`}
+        : 'blue-light')} flex-grow`}
       role="button"
-      onClick={() => setActive(!active)}
+      onMouseEnter={() => setActive(!active)}
     >
       &nbsp;
     </div>
