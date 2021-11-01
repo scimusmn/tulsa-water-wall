@@ -22,6 +22,10 @@ module.exports = {
   ],
   rules: {
     'import/no-extraneous-dependencies': 'off',
+    // This application is touchscreen only, so we can ignore some of our default
+    // web accessibility rules
+    'jsx-a11y/interactive-supports-focus': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
     // The SMM team doesn't write React code in .jsx files exclusively, as is suggested in the
     // Airbnb guide, so override this rule to allow .js files.
     'react/jsx-filename-extension': [
