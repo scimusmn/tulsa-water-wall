@@ -1,4 +1,10 @@
 const path = require('path');
+const importAliases = require('./import-aliases');
+
+// Modify the import alias list to match eslint import/resolver format
+const aliasObject = importAliases.map(
+  (alias) => [alias.alias, path.resolve(__dirname, alias.path)],
+);
 
 module.exports = {
   extends: [
@@ -31,10 +37,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       alias: {
-        map: [
-          ['@components', path.resolve(__dirname, './src/components')],
-          ['@styles', path.resolve(__dirname, './src/styles')],
-        ],
+        map: aliasObject,
         extensions: ['.ts', '.js', '.jsx', '.json'],
       },
     },
