@@ -5,12 +5,38 @@
 // Button state is stored in the global AppContext
 //
 import React from 'react';
+import classNames from 'classnames';
 import IconDraw from '../../images/icon-draw.svg';
 import IconErase from '../../images/icon-erase.svg';
 import { AppContext } from '../../contexts/App';
 
 const SidebarLeft = () => {
   const [state, dispatch] = React.useContext(AppContext);
+  const buttonDefaultClasses = [
+    'text-4xl',
+    'box-border',
+    'text-center',
+    'border-2',
+    'rounded-2xl',
+    'my-8',
+    'mx-3',
+    'p-3',
+    'text-center',
+    'text-white',
+  ];
+  // Selected / Unselected are clunky terms, but that's what is used in the design documents
+  // so we're keeping the variables consistent here to ensure that everything matches the
+  // approved graphics.
+  const buttonSelectedClass = classNames('blue-light', 'shaddow-2xl');
+  const buttonUnselectedClass = 'blue';
+  const buttonDrawSelectedClasses = `bg-${state.isDraw
+    ? buttonSelectedClass
+    : buttonUnselectedClass}`;
+  const buttonEraseSelectClasses = `bg-${state.isErase
+    ? buttonSelectedClass
+    : buttonUnselectedClass}`;
+  const buttonDrawClasses = () => classNames(buttonDrawSelectedClasses, buttonDefaultClasses);
+  const buttonEraseClasses = () => classNames(buttonEraseSelectClasses, buttonDefaultClasses);
 
   return (
     <div className="w-2/12">
@@ -20,9 +46,7 @@ const SidebarLeft = () => {
             <div
               onClick={() => dispatch({ type: 'SET_DRAW' })}
               role="button"
-              className={`bg-${state.isDraw
-                ? 'blue'
-                : 'blue-light'} shadow-2xl text-4xl box-border text-center border-2 rounded-2xl my-8 mx-3 p-3 text-center text-white`}
+              className={buttonDrawClasses()}
             >
               <IconDraw />
               Draw
@@ -30,9 +54,7 @@ const SidebarLeft = () => {
             <div
               onClick={() => dispatch({ type: 'SET_ERASE' })}
               role="button"
-              className={`bg-${state.isErase
-                ? 'blue'
-                : 'blue-light'} shadow-2xl text-4xl box-border text-center border-2 rounded-2xl my-8 mx-3 p-3 text-center text-white`}
+              className={buttonEraseClasses()}
             >
               <IconErase />
               Erase
