@@ -1,8 +1,8 @@
 import React from 'react';
-import Home from '@components/Home';
+import App from '@components/App';
 
 const IndexPage = () => (
-  <Home />
+  <App />
 );
 
 export default IndexPage;

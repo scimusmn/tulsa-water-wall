@@ -3,7 +3,7 @@ import SidebarLeft from '@components/SidebarLeft';
 import SidebarRight from '@components/SidebarRight';
 import Drawing from '@components/DrawingArea';
 
-const Home = () => (
+const App = () => (
   <div className="flex">
     <SidebarLeft />
     <div className="flex-grow">
@@ -15,4 +15,5 @@ const Home = () => (
     <SidebarRight />
   </div>
 );
-export default Home;
+
+export default App;

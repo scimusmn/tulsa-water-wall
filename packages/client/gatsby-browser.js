@@ -3,10 +3,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import './src/css/index.css';
-import Provider from './src/contexts/Drawing/provider';
+import AppProvider from './src/contexts/App';
 
 // Wrap entire app in a Global State provider
-export const wrapRootElement = ({ element }) => <Provider>{element}</Provider>;
+export const wrapRootElement = ({ element }) => <AppProvider>{element}</AppProvider>;
 
 wrapRootElement.propTypes = {
   element: PropTypes.element.isRequired,
