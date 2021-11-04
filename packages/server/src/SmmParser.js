@@ -2,9 +2,7 @@
 
 const { Transform } = require('stream');
 
-
 const packetRegex = /{[^{:}]*:[^{:}]*}/;
-
 
 class SmmParser extends Transform {
   constructor(options) {
@@ -19,11 +17,11 @@ class SmmParser extends Transform {
     let match = str.match(packetRegex);
     if (match === null)
       // no packet detected, leave buffer unmodified
-      return [ null, buf ];
+      return [null, buf];
     // strip the buffer up to and including the packet
     buf = buf.slice(match.index + match[0].length);
-    let [ key, value ] = match[0].slice(1, match[0].length-1).split(':');
-    return [ { key, value }, buf ];
+    let [key, value] = match[0].slice(1, match[0].length - 1).split(':');
+    return [{ key, value }, buf];
   }
 
   _transform(chunk, encoding, cb) {
@@ -38,6 +36,5 @@ class SmmParser extends Transform {
     cb();
   }
 }
-
 
 module.exports = SmmParser;
