@@ -74,6 +74,7 @@ class WaterWall {
     if (this.state.lineIndex < 0) {
       // all of the drawing has been transmitted, finalize
       this.arduino.send('publish-drawing', '1');
+      this.state.queue.pop();
       this.state.mode = WallMode.WaitForReady;
       return;
     }

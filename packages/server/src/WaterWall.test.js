@@ -52,3 +52,51 @@ test('WaterWall correctly sends data', () => {
   expect(mockArduino.send.mock.calls[81][0]).toBe('publish-drawing');
   expect(mockArduino.send.mock.calls[81][1]).toBe('1');
 });
+
+
+function matchDrawing(mockArduino, offset, drawing) {
+  const o = offset * (drawing.length+2);
+  
+  expect(mockArduino.send.mock.calls[o][0]).toBe('begin-drawing');
+  expect(mockArduino.send.mock.calls[o][1]).toBe('1');
+
+  for (let i=0; i<drawing.length; i++) {
+    expect(mockArduino.send.mock.calls[o+i+1][0]).toBe('line');
+    expect(mockArduino.send.mock.calls[o+i+1][1]).toBe(drawing[drawing.length-i-1]);
+  }
+
+  expect(mockArduino.send.mock.calls[o+drawing.length+1][0]).toBe('publish-drawing');
+  expect(mockArduino.send.mock.calls[o+drawing.length+1][1]).toBe('1');
+}
+
+
+test('WaterWall iterates over all default drawings', () => {
+  const wall = new WaterWall();
+  wall.arduino = new MockArduino();
+
+  wall.onRxReady('1');
+  for (let i=0; i<80; i++)
+    wall.onAcknowledgeLine();
+
+  wall.onRxReady('0');
+  wall.onRxReady('1');
+  for (let i=0; i<80; i++)
+    wall.onAcknowledgeLine();
+
+  wall.onRxReady('0');
+  wall.onRxReady('1');
+  for (let i=0; i<80; i++)
+    wall.onAcknowledgeLine();
+
+  wall.onRxReady('0');
+  wall.onRxReady('1');
+  for (let i=0; i<80; i++)
+    wall.onAcknowledgeLine();
+
+  expect(wall.arduino.send.mock.calls.length).toBe(82*4);
+
+  matchDrawing(wall.arduino, 0, DefaultDrawings[0]);
+  matchDrawing(wall.arduino, 1, DefaultDrawings[1]);
+  matchDrawing(wall.arduino, 2, DefaultDrawings[2]);
+  matchDrawing(wall.arduino, 3, DefaultDrawings[0]);
+});
