@@ -254,14 +254,13 @@ const drawing3 = [
 
 
 function toArrayOfArrays(drawing) {
-  return drawing.map(line => {
-    line.split('').map(x => Number(x));
-  });
+  return drawing.map(line => line.split('').map(x => Number(x)));
 }
 
 
 function toEncoded(drawing) {
-  return toArrayOfArrays(drawing).map(lineArray => ArrayEncode(lineArray));
+  const arr = toArrayOfArrays(drawing);
+  return arr.map(lineArray => ArrayEncode(lineArray));
 }
 
 
