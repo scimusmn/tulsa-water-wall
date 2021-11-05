@@ -1,5 +1,4 @@
 const Arduino = require('./arduino.js');
-const ArrayEncode = require('./ArrayEncode.js');
 const DefaultDrawings = require('./DefaultDrawings.js');
 
 
