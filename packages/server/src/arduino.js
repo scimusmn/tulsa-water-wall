@@ -61,6 +61,7 @@ class Arduino {
 
   _onData(data) {
     const { key, value } = data;
+    console.log(`{${key}:${value}}`);
     if (typeof (this.dataCallbacks[key]) === 'function')
       this.dataCallbacks[key](value);
 
@@ -73,7 +74,8 @@ class Arduino {
   }
 
   send(key, value) {
-    this.port.write(`${key}:${value}`);
+    console.log(`> {${key}:${value}}`);
+    this.port.write(`{${key}:${value}}`);
   }
 }
 

@@ -16,6 +16,7 @@ const server = new WebSocket.Server({ port: 8080 });
 const wall = new WaterWall();
 
 wall.open().then(() => {
+  console.log(wall.arduino.port);
   console.log('Arduino connection successful!');
 });
 

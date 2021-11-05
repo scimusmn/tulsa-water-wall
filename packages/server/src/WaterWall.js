@@ -42,7 +42,7 @@ class WaterWall {
   }
 
   onRxReady(state) {
-    if (state === 0) {
+    if (state === '0') {
       // arduino cannot receive at the moment, do nothing
       this.state.mode = WallMode.WaitForReady;
       return;
