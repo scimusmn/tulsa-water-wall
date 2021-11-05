@@ -100,3 +100,41 @@ test('WaterWall iterates over all default drawings', () => {
   matchDrawing(wall.arduino, 2, DefaultDrawings[2]);
   matchDrawing(wall.arduino, 3, DefaultDrawings[0]);
 });
+
+
+test('WaterWall correctly queues and displays drawing received during transmission', () => {
+  const wall = new WaterWall();
+  wall.arduino = new MockArduino();
+
+  wall.onRxReady('1');
+  for (let i=0; i<40; i++)
+    wall.onAcknowledgeLine();
+
+  //insert new
+  wall.push(DefaultDrawings[2]);
+
+  for (let i=40; i<80; i++)
+    wall.onAcknowledgeLine();
+
+  wall.onRxReady('0');
+  wall.onRxReady('1');
+  for (let i=0; i<80; i++)
+    wall.onAcknowledgeLine();
+
+  wall.onRxReady('0');
+  wall.onRxReady('1');
+  for (let i=0; i<80; i++)
+    wall.onAcknowledgeLine();
+
+  wall.onRxReady('0');
+  wall.onRxReady('1');
+  for (let i=0; i<80; i++)
+    wall.onAcknowledgeLine();
+
+  expect(wall.arduino.send.mock.calls.length).toBe(82*4);
+
+  matchDrawing(wall.arduino, 0, DefaultDrawings[0]);
+  matchDrawing(wall.arduino, 1, DefaultDrawings[2]);
+  matchDrawing(wall.arduino, 2, DefaultDrawings[1]);
+  matchDrawing(wall.arduino, 3, DefaultDrawings[2]);
+});

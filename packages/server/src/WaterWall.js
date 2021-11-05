@@ -56,7 +56,7 @@ class WaterWall {
     this.state.mode = WallMode.Transmitting;
     this.arduino.send('begin-drawing', '1');
 
-    if (this.state.queue.length < 1) {
+    if (this.state.queue.length === 0) {
       this.state.queue.push(DefaultDrawings[this.state.nextDefault]);
       this.state.nextDefault = (this.state.nextDefault + 1) % DefaultDrawings.length;
     }
@@ -74,12 +74,16 @@ class WaterWall {
     if (this.state.lineIndex < 0) {
       // all of the drawing has been transmitted, finalize
       this.arduino.send('publish-drawing', '1');
-      this.state.queue.pop();
+      this.state.queue.shift();
       this.state.mode = WallMode.WaitForReady;
       return;
     }
 
     this._sendLine();
+  }
+
+  push(drawing) {
+    this.state.queue.push(drawing);
   }
 }
 
