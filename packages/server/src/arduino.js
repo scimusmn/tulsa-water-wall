@@ -71,6 +71,10 @@ class Arduino {
   on(key, cb) {
     this.dataCallbacks[key] = cb;
   }
+
+  send(key, value) {
+    this.port.write(`${key}:${value}`);
+  }
 }
 
 /* ~~~~~~~~~~~~~~~~ arduino types ~~~~~~~~~~~~~~~~ */
@@ -81,7 +85,15 @@ class MetroMini extends Arduino {
   }
 }
 
+
+class Mega extends Arduino {
+  constructor() {
+    super({ vendorId: '2341', productId: '0042' });
+  }
+}
+
 Arduino.MetroMini = MetroMini;
+Arduino.Mega = Mega;
 
 /* ~~~~~~~~~~~~~~~~ export ~~~~~~~~~~~~~~~~ */
 
