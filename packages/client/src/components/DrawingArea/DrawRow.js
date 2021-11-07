@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import DrawPixel from '@components/DrawingArea/DrawPixel';
 
 function DrawRow({
-  color, rowHeight, pixelMargin, pixelsWide,
+  rowHeight, pixelMargin, pixelsWide, y,
 }) {
   const divStyle = {
     marginBottom: `${pixelMargin}px`,
@@ -16,15 +16,15 @@ function DrawRow({
     lineHeight: `${rowHeight}px`,
   };
   return (
-    // Row
     <div className="flex flex-row" style={divStyle}>
       {
-        [...Array(pixelsWide)].map((e, i) => {
-          const key = `special${i}`;
+        [...Array(pixelsWide)].map((e, x) => {
+          const key = `special${x}`;
           return (
             <DrawPixel
+              x={x}
+              y={y}
               key={key}
-              color={color}
             />
           );
         })
@@ -34,10 +34,10 @@ function DrawRow({
 }
 
 DrawRow.propTypes = {
-  color: PropTypes.string.isRequired,
-  rowHeight: PropTypes.number.isRequired,
   pixelMargin: PropTypes.number.isRequired,
   pixelsWide: PropTypes.number.isRequired,
+  rowHeight: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
 };
 
 export default DrawRow;
