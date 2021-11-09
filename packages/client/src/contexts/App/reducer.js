@@ -90,11 +90,10 @@ export const reducer = (state, action) => {
   // Share the grid with the server, so send to Water Wall.
   // TODO: Write websocket communication to share grid to server
   if (action.type === 'SHARE_GRID') {
-    console.log('sharing');
-    console.log(state.grid);
-    console.log(Array.isArray(state.grid) ? 'array' : typeof state.grid);
-    console.log('----^ ^ ^ ^ ^ state.grid ^ ^ ^ ^ ^----');
+    const { socket } = action.payload;
+    socket.send(JSON.stringify(state.grid));
     return state;
   }
+
   return state;
 };

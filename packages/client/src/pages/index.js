@@ -1,8 +1,9 @@
 import React from 'react';
-import App from '@components/App';
 
 const IndexPage = () => (
-  <App />
+  <>
+    <h1>Water Wall</h1>
+    <p>Please visit the /app path for the application.</p>
+  </>
 );
-
 export default IndexPage;

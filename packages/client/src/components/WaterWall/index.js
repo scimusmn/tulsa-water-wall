@@ -3,7 +3,7 @@ import SidebarLeft from '@components/SidebarLeft';
 import SidebarRight from '@components/SidebarRight';
 import Drawing from '@components/DrawingArea';
 
-const App = () => (
+const WaterWall = () => (
   <div className="flex">
     <SidebarLeft />
     <div className="flex-grow">
@@ -16,4 +16,4 @@ const App = () => (
   </div>
 );
 
-export default App;
+export default WaterWall;

@@ -1,14 +1,33 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import IconFlip from '../../images/icon-flip.svg';
 import IconTrash from '../../images/icon-trash.svg';
 import IconArrowUp from '../../images/icon-arrow-up.svg';
 import { AppContext } from '../../contexts/App';
 
 const SidebarRight = () => {
-  // TODO: figure out if there's a way to assign the second argument of this context
-  // without needing an exception for the empty _ variable.
+  // We need the dispatch function, but not the context state for this component.
   // eslint-disable-next-line no-unused-vars
   const [_, dispatch] = React.useContext(AppContext);
+
+  //
+  // Open WebSocket connection
+  //
+  // We need to open the socket in this component which is loaded on a client side only page,
+  // so that static rendered Gatsby page has access to the WebSocket browser API.
+  //
+  // We also need to create null ref and then load the websocket connection inside of an
+  // effect hook, otherwise the connection will be opened and closed everytime the component
+  // renders. Without doing this, the websocket connection will fail after 10s of seconds
+  // of usage because of browser performance issues.
+  //
+  const ws = useRef(null);
+  useEffect(() => {
+    ws.current = new WebSocket('ws://localhost:8081/ws');
+    const wsCurrent = ws.current;
+    return () => {
+      wsCurrent.close();
+    };
+  }, []);
 
   return (
     <div className="w-2/12 relative">
@@ -33,7 +52,9 @@ const SidebarRight = () => {
           className="absolute w-full bottom-20 text-4xl text-center border-2 rounded-2xl p-3 text-blue bg-white"
           role="button"
           onMouseDown={() => {
-            dispatch({ type: 'SHARE_GRID' });
+            // Trigger share grid in reducer, and pass the WebSocket connection, for sharing
+            // the data with the WaterWall server.
+            dispatch({ type: 'SHARE_GRID', payload: { socket: ws.current } });
           }}
         >
           <IconArrowUp
