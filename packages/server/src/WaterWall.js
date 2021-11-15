@@ -16,7 +16,7 @@ class WallMode {
 
 
 class WaterWall {
-  constructor() {
+  constructor(log = false) {
     this.state = {
       queue: [],
       mode: WallMode.WaitForReady,
@@ -25,6 +25,7 @@ class WaterWall {
     };
     
     this.arduino = new Arduino.Mega();
+    this.arduino.log = log;
     this.onRxReady = this.onRxReady.bind(this);
     this.onAcknowledgeLine = this.onAcknowledgeLine.bind(this);
   }

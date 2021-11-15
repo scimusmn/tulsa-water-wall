@@ -4,6 +4,8 @@ const cors = require('cors');
 const WaterWall = require('./WaterWall.js');
 const ArrayEncode = require('./ArrayEncode.js');
 
+const logArduino = true;
+
 //
 // Start an Express server
 //
@@ -16,28 +18,32 @@ app.use(cors({
 }));
 
 //
-// ???
+// Convert drawing object to array of arrays of booleans
+// Each bool array represents a 120-element line.
+// There should be 80 lines.
 //
-// TODO: Describe what this does
+function arrayDrawing(drawingObject) {
+  return Object.keys(drawingObject)
+    .map(lineKey => Object.values(drawingObject[lineKey]).map(element => element.painted));
+}
+
+
 //
-function encodeDrawing(drawing) {
-  return drawing.map(
-    line => line.split('')
-      .map(x => Number(x))
-  ).map(lineArray => ArrayEncode(lineArray));
+// Encode an array-of-arrays drawing into an array of base64 strings
+// for upload to the arduino.
+//
+function encodeDrawing(array) {
+  return array.map(line => ArrayEncode(line));
 }
 
 //
-// ???
+// Open and initialize WaterWall Arduino manager
 //
-// TODO: Describe what this does
-// Commented out for now to allow server to run without Arduino in place.
-//
-// const wall = new WaterWall();
-// wall.open().then(() => {
-//   console.log(wall.arduino.port);
-//   console.log('Arduino connection successful!');
-// });
+const wall = new WaterWall(logArduino);
+wall.open().then(() => {
+  console.log(wall.arduino.port);
+  console.log('Arduino connection successful!');
+});
 
 //
 // WebSocket listener
@@ -45,18 +51,10 @@ function encodeDrawing(drawing) {
 const wsServer = new ws.Server({ noServer: true, path: '/ws' });
 wsServer.on('connection', socket => {
   socket.on('message', message => {
-    // TODO: Do something with the grid that is sent through
-    // Right now we just console.log it
     const grid = JSON.parse(message.toString());
-    console.log(grid);
-    console.log(Array.isArray(grid) ? 'array' : typeof grid);
-    console.log('----^ ^ ^ ^ ^ grid ^ ^ ^ ^ ^----');
-
-    // TODO: Update this code to use the Arduinos with the sent drawing
-    // Commented out for now to allow server to run without Arduino in place.
-    // drawing = encodeDrawing(data['publish-drawing']);
-    // console.log(`new drawing: ${drawing}`);
-    // wall.push(drawing);
+    const drawing = encodeDrawing(arrayDrawing(grid));
+    console.log(drawing);
+    wall.push(drawing);
   });
 });
 

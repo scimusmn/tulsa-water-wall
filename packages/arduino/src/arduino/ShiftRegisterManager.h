@@ -13,8 +13,7 @@ class ShiftRegisterManager {
       pinMode(dataPin, OUTPUT);
 
       if (initSize > 0) {
-	 byte * initData = calloc(initSize, sizeof(byte));
-	 write(initData, initSize);
+	 clear(initSize);
       }
    }
 
@@ -24,6 +23,13 @@ class ShiftRegisterManager {
       digitalWrite(latchPin, 0);
       for (int i=0; i<size; i++)
 	 shiftOut(dataPin, clockPin, byteOrder, array[i]);
+      digitalWrite(latchPin, 1);
+   }
+
+   void clear(size_t size) {
+      digitalWrite(latchPin, 0);
+      for (int i=0; i<size; i++)
+	 shiftOut(dataPin, clockPin, LSBFIRST, 0);
       digitalWrite(latchPin, 1);
    }
 

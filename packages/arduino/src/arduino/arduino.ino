@@ -13,7 +13,7 @@ ShiftRegisterManager registers;
 #define LINE_SIZE 15
 #define N_LINES 80
 
-#define LINE_TIME 100
+#define LINE_TIME 32
 
 byte drawing[N_LINES][LINE_SIZE];
 unsigned int current_line = 0;
@@ -36,6 +36,7 @@ void publishDrawing() {
       registers.write(drawing[i], LINE_SIZE);
       delay(LINE_TIME);
    }
+   registers.clear(LINE_SIZE);
    serial.send("rx-ready", "1");
 }
 

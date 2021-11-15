@@ -5,7 +5,7 @@ const Parser = require('./SmmParser.js');
 
 class Arduino {
   constructor(options = {}) {
-    const { vendorId, productId, port } = options;
+    const { vendorId, productId, port, log } = options;
     this.vendorId = vendorId;
     this.productId = productId;
     this.path = port;
@@ -61,7 +61,8 @@ class Arduino {
 
   _onData(data) {
     const { key, value } = data;
-    console.log(`{${key}:${value}}`);
+    if (this.log)
+      console.log(`{${key}:${value}}`);
     if (typeof (this.dataCallbacks[key]) === 'function')
       this.dataCallbacks[key](value);
 
@@ -74,7 +75,8 @@ class Arduino {
   }
 
   send(key, value) {
-    console.log(`> {${key}:${value}}`);
+    if (this.log)
+      console.log(`> {${key}:${value}}`);
     this.port.write(`{${key}:${value}}`);
   }
 }

@@ -10,7 +10,7 @@ import { AppContext } from '../../contexts/App';
 function DrawPixel({ x, y }) {
   const [state, dispatch] = useContext(AppContext);
   const { grid } = state;
-  const { painted } = grid[x][y];
+  const { painted } = grid[y][x];
   return (
     <div
       // Paint pixel based on global state for the current pixel

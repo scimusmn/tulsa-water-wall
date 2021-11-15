@@ -7,24 +7,24 @@
 // Columns
 // eslint-disable-next-line prefer-spread
 // Initial values 120, 80
-const pixelsWide = 60;
-const pixelsTall = 40;
-const pixelMargin = 2;
+const pixelsWide = 120;
+const pixelsTall = 80;
+const pixelMargin = 0;
 
 //
 // Drawing grid
 //
-// Define an array (columns)
-// of arrays (rows within the columns)
+// Define an array (rows)
+// of arrays (columns within the rows)
 // of booleans (pixels which can be on or off)
 // to store the current state of the drawing
 //
-const gridInitial = () => [...Array(pixelsWide)].map((_, i) => (
-  [...Array(pixelsTall)].map((__, j) => ({
+const gridInitial = () => [...Array(pixelsTall)].map((_, i) => (
+  [...Array(pixelsWide)].map((__, j) => ({
     // painted: !(j % 2),
     painted: false,
-    x: i,
-    y: j,
+    x: j,
+    y: i,
   }))
 ));
 
@@ -76,10 +76,10 @@ export const reducer = (state, action) => {
       ...state,
       grid: {
         ...state.grid,
-        [x]: {
-          ...state.grid[x],
-          [y]: {
-            ...state.grid[x][y],
+        [y]: {
+          ...state.grid[y],
+          [x]: {
+            ...state.grid[y][x],
             painted,
           },
         },
