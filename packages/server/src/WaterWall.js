@@ -1,7 +1,6 @@
 const Arduino = require('./arduino.js');
 const DefaultDrawings = require('./DefaultDrawings.js');
 
-
 class WallMode {
   static WaitForReady = new WallMode('Wait for Ready');
   static Transmitting = new WallMode('Transmitting');
@@ -9,11 +8,11 @@ class WallMode {
   constructor(name) {
     this.name = name;
   }
+
   toString() {
     return this.name;
   }
 }
-
 
 class WaterWall {
   constructor(log = false) {
@@ -23,7 +22,7 @@ class WaterWall {
       lineIndex: null,
       nextDefault: 0,
     };
-    
+
     this.arduino = new Arduino.Mega();
     this.arduino.log = log;
     this.onRxReady = this.onRxReady.bind(this);
@@ -48,7 +47,7 @@ class WaterWall {
       this.state.mode = WallMode.WaitForReady;
       return;
     }
-    
+
     if (this.state.mode === WallMode.Transmitting)
       // we are already transmitting a drawing, ignore
       return;
@@ -61,7 +60,7 @@ class WaterWall {
       this.state.nextDefault = (this.state.nextDefault + 1) % DefaultDrawings.length;
     }
 
-    this.state.lineIndex = this.state.queue[0].length-1;
+    this.state.lineIndex = this.state.queue[0].length - 1;
     this._sendLine();
   }
 
@@ -70,7 +69,7 @@ class WaterWall {
       // we're waiting for the arduino to be ready for the next drawing; ignore
       return;
     }
-    
+
     if (this.state.lineIndex < 0) {
       // all of the drawing has been transmitted, finalize
       this.arduino.send('publish-drawing', '1');
@@ -86,7 +85,6 @@ class WaterWall {
     this.state.queue.push(drawing);
   }
 }
-
 
 /* ~~~~~~~~~~~~~~~~ export ~~~~~~~~~~~~~~~~ */
 

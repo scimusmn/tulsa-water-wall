@@ -89,7 +89,6 @@ class MetroMini extends Arduino {
   }
 }
 
-
 class Mega extends Arduino {
   constructor() {
     super({ vendorId: '2341', productId: '0042' });

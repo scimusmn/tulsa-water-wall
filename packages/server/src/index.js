@@ -27,7 +27,6 @@ function arrayDrawing(drawingObject) {
     .map(lineKey => Object.values(drawingObject[lineKey]).map(element => element.painted));
 }
 
-
 //
 // Encode an array-of-arrays drawing into an array of base64 strings
 // for upload to the arduino.
