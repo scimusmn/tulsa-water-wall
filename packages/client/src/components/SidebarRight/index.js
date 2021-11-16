@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import IconFlip from '../../images/icon-flip.svg';
 import IconTrash from '../../images/icon-trash.svg';
 import IconArrowUp from '../../images/icon-arrow-up.svg';
@@ -7,7 +7,8 @@ import { AppContext } from '../../contexts/App';
 const SidebarRight = () => {
   // We need the dispatch function, but not the context state for this component.
   // eslint-disable-next-line no-unused-vars
-  const [_, dispatch] = React.useContext(AppContext);
+  const [state, dispatch] = React.useContext(AppContext);
+  const { shareLockoutSeconds } = state;
 
   //
   // Open WebSocket connection
@@ -28,6 +29,22 @@ const SidebarRight = () => {
       wsCurrent.close();
     };
   }, []);
+
+  //
+  // Timer to lockout sharing for a short delay once a drawing is sent
+  //
+  // This prevents button mashing and a long queue of drawings from being loaded up
+  // on the node server for display on the Water Wall.
+  //
+  const [shareBlocked, setShareBlocked] = useState(false);
+  useEffect(() => {
+    let timer;
+    if (shareBlocked) {
+      timer = setTimeout(() => setShareBlocked(false), shareLockoutSeconds * 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [shareBlocked]);
+  const blockSharing = () => setShareBlocked(true);
 
   return (
     <div className="w-2/12 relative">
@@ -61,19 +78,31 @@ const SidebarRight = () => {
           </div>
         </div>
         <div
-          className="absolute w-full bottom-20 text-4xl text-center border-2 rounded-2xl p-3 text-blue bg-white"
+          className={`absolute w-full bottom-20 text-4xl text-center border-2 rounded-2xl p-3 ${(shareBlocked
+            ? 'text-white bg-blue'
+            : 'text-blue bg-white')}`}
           role="button"
-          onMouseDown={() => {
+          onClick={() => {
             // Trigger share grid in reducer, and pass the WebSocket connection, for sharing
             // the data with the WaterWall server.
-            dispatch({ type: 'SHARE_GRID', payload: { socket: ws.current } });
+            blockSharing();
+            dispatch({
+              type: 'SHARE_GRID',
+              payload: { socket: ws.current },
+            });
           }}
         >
-          <IconArrowUp
-            className="absolute left-5 bottom-2 float-left mr-4"
-            style={{ height: '45px' }}
-          />
-          Share
+          {shareBlocked
+            ? 'Wait'
+            : (
+              <>
+                <IconArrowUp
+                  className="absolute left-5 bottom-2 float-left mr-4"
+                  style={{ height: '45px' }}
+                />
+                Share
+              </>
+            )}
         </div>
       </div>
     </div>

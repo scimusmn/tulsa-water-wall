@@ -4,10 +4,11 @@
 // Actions to update global state from the different components of the drawing app.
 //
 
-// Columns
+// Constants
 const pixelsWide = 120;
 const pixelsTall = 80;
 const pixelMargin = 0;
+const shareLockoutSeconds = 10;
 
 //
 // Drawing grid
@@ -40,6 +41,7 @@ export const initialState = {
   pixelsWide,
   pixelsTall,
   pixelMargin,
+  shareLockoutSeconds,
   grid: gridInitial(),
 };
 
