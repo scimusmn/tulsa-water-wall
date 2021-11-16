@@ -4,31 +4,50 @@
 // Draw an individual pixel and setup basic on/off state based on a click
 //
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../contexts/App';
 
 function DrawPixel({ x, y }) {
+  //
+  // Get global state and dispatch function for updating on share
+  //
+  // We only update global state when the sidebar triggers a share by switching isShare on.
+  // This operation is expensive and can't be done on every pixel paint without degrading
+  // the painting experience.
+  //
   const [state, dispatch] = useContext(AppContext);
-  const { grid } = state;
-  const { painted } = grid[y][x];
+  const { isDraw, isShare } = state;
+
+  // Set up local state for tracking pixel paint in the pixel itself.
+  const [localPainted, setLocalPainted] = useState(false);
+
+  // Use effect to allow the local component to update global state when isShare is enabled.
+  // We need to useEffect here so that this doesn't get triggered on every component load or change.
+  useEffect(() => {
+    if (isShare) {
+      dispatch({
+        type: 'UPDATE_GRID',
+        payload: {
+          x,
+          y,
+          painted: localPainted,
+        },
+      });
+    }
+    // Pass state and dispatch to the effect, so that we can trigger it when the
+    // isShare toggle is enabled.
+  }, [state, dispatch]);
+
   return (
     <div
-      // Paint pixel based on global state for the current pixel
-      className={`bg-${(painted
+      // Paint pixel based on local state for the current pixel
+      className={`bg-${(localPainted
         ? 'white'
         : 'blue-light')} flex-grow`}
       role="button"
-      // On hover, update global state of the current pixel, depending on draw or erase mode
-      onMouseEnter={() => {
-        dispatch({
-          type: 'UPDATE_GRID',
-          payload: {
-            x,
-            y,
-            painted: !!state.isDraw,
-          },
-        });
-      }}
+      // On hover, update local state of the current pixel, depending on draw or erase mode
+      // TODO: change this an event that works for touchscreen
+      onMouseEnter={() => (isDraw ? setLocalPainted(true) : setLocalPainted(false))}
     >
       &nbsp;
     </div>

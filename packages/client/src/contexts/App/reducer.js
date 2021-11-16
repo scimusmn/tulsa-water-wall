@@ -5,8 +5,6 @@
 //
 
 // Columns
-// eslint-disable-next-line prefer-spread
-// Initial values 120, 80
 const pixelsWide = 120;
 const pixelsTall = 80;
 const pixelMargin = 0;
@@ -34,6 +32,9 @@ export const initialState = {
   isDraw: true,
   // Erasing is disabled by default
   isErase: false,
+  // Toggle to trigger updating the global state. Defaults to off, since this is an expensive
+  // operation and we only want to do this when a share is triggered.
+  isShare: false,
   pixelsWide,
   pixelsTall,
   pixelMargin,
@@ -69,10 +70,20 @@ export const reducer = (state, action) => {
     };
   }
 
-  // Update the a single pixel's painted state
+  //
+  // Update the global state grid
+  //
+  // When the SHARE_GRID action is triggered each pixel will call this action, updating the
+  // painted value for that pixel. At the end of this operation we set isShare to false, so
+  // that the grid is only updated once. Otherwise the updating would trigger an infinite loop.
+  //
+  // We watch the x & y values to see if we're at the end of the grid. On the last pixel of the
+  // drawing we send the whole grid value to websocket connection so that the server can send
+  // the drawing to the Arduino array.
+  //
   if (action.type === 'UPDATE_GRID') {
     const { x, y, painted } = action.payload;
-    return {
+    const newState = {
       ...state,
       grid: {
         ...state.grid,
@@ -84,15 +95,31 @@ export const reducer = (state, action) => {
           },
         },
       },
+      isShare: false,
     };
+    if (x === (pixelsWide - 1) && y === (pixelsTall - 1)) {
+      const { socket } = newState;
+      socket.send(JSON.stringify(newState.grid));
+    }
+    return newState;
   }
 
-  // Share the grid with the server, so send to Water Wall.
-  // TODO: Write websocket communication to share grid to server
+  //
+  // Start sharing process
+  //
+  // Turn sharing on, so that all the pixels can start updating the global state with their
+  // painted values.
+  //
+  // We also add the websocket connection to state, so that another dispatch can send the data
+  // once the global state grid has been populated. This websocket connection needs to be opened
+  // on a component load, so that it can get access to the browser API.
+  //
   if (action.type === 'SHARE_GRID') {
-    const { socket } = action.payload;
-    socket.send(JSON.stringify(state.grid));
-    return state;
+    return {
+      ...state,
+      isShare: true,
+      socket: action.payload.socket,
+    };
   }
 
   return state;
