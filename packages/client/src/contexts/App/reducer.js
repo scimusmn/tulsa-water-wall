@@ -67,6 +67,11 @@ export const reducer = (state, action) => {
     return {
       ...state,
       isClear: true,
+      // If you are in erase mode and get left in erase mode after a clear, you might be confused
+      // as to why nothing is happening. Ensure we return to drawing mode after a clear since
+      // there's nothing to erase.
+      isDraw: true,
+      isErase: false,
     };
   }
 
