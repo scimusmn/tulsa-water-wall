@@ -16,7 +16,9 @@ function DrawPixel({ x, y }) {
   // the painting experience.
   //
   const [state, dispatch] = useContext(AppContext);
-  const { isDraw, isShare } = state;
+  const {
+    isDraw, isClear, isFlip, isShare,
+  } = state;
 
   // Set up local state for tracking pixel paint in the pixel itself.
   const [localPainted, setLocalPainted] = useState(false);
@@ -24,6 +26,16 @@ function DrawPixel({ x, y }) {
   // Use effect to allow the local component to update global state when isShare is enabled.
   // We need to useEffect here so that this doesn't get triggered on every component load or change.
   useEffect(() => {
+    // On clear, set painted to false for all pixels
+    if (isClear) {
+      setLocalPainted(false);
+    }
+
+    // On flip, switch the painted value to the opposite of the current value
+    if (isFlip) {
+      setLocalPainted(!localPainted);
+    }
+
     if (isShare) {
       dispatch({
         type: 'UPDATE_GRID',

@@ -35,6 +35,8 @@ export const initialState = {
   // Toggle to trigger updating the global state. Defaults to off, since this is an expensive
   // operation and we only want to do this when a share is triggered.
   isShare: false,
+  isClear: false,
+  isFlip: false,
   pixelsWide,
   pixelsTall,
   pixelMargin,
@@ -62,11 +64,33 @@ export const reducer = (state, action) => {
 
   // Reset the grid to the default state
   if (action.type === 'CLEAR_GRID') {
-    // // eslint-disable-next-line no-return-assign,no-param-reassign
-    // state.grid = gridInitial();
     return {
       ...state,
-      grid: gridInitial(),
+      isClear: true,
+    };
+  }
+
+  // Reset the grid to the default state
+  if (action.type === 'CLEAR_RESET') {
+    return {
+      ...state,
+      isClear: false,
+    };
+  }
+
+  // Reset the grid to the default state
+  if (action.type === 'FLIP_GRID') {
+    return {
+      ...state,
+      isFlip: true,
+    };
+  }
+
+  // Reset the grid to the default state
+  if (action.type === 'FLIP_RESET') {
+    return {
+      ...state,
+      isFlip: false,
     };
   }
 
