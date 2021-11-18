@@ -5,8 +5,8 @@
 //
 
 // Constants
-const pixelsWide = 60;
-const pixelsTall = 40;
+const pixelsWide = 120;
+const pixelsTall = 80;
 const pixelMargin = 0;
 const shareLockoutSeconds = 10;
 
