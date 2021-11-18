@@ -17,6 +17,10 @@
 }
 
 @layer base {
+  html {
+    cursor: none !important;
+  }
+
   body,
   html {
     height: 100%;
