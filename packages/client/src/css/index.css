@@ -28,7 +28,24 @@
 
   body {
     background: var(--blue);
+    cursor: none;
     font-family: "Brandon Grotesque Black", sans-serif;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  body button,
+  body button:focus {
+    border: none !important;
+    cursor: none;
+    outline: none !important;
+    user-select: none !important;
+  }
+
+  img {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
   }
 
   h1 {
