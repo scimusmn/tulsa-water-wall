@@ -1,46 +1,57 @@
-const ArrayEncode = require('./ArrayEncode.js');
+const getPixels = require('get-pixels');
+const { readdir } = require('fs/promises');
+const arrayEncode = require('./ArrayEncode.js');
 
 
-const drawing_TULSA = [
-  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
-  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
-  'P/8GcB/weAH/+DOA/4PA', 'A4cGcD/weAAcODOB/4PA', 'A4cGcDhw+AAcODOBw4fA',
-  'A4cGcDgA/AAcODOBwAfg', 'A4cGcDwB3AAcODOB4A7g', 'A4cGcD/hzgAcODOB/w5w',
-  'A4cGcA/xjgAcODOAf4xw', 'A4cGcADz/gAcODOAB5/w', 'A4cGcABzhwAcODOAA5w4',
-  'A4cOcDBzBwAcOHOBg5g4', 'A4P+cD/3AwAcH/OB/7gY', 'A4H8f//nA4AcD+P//zgc',
-  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
-  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
-  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
-  'AAAAAAAAAAAAAAAAAAAA', 'P/8GcB/weAH/+DOA/4PA', 'A4cGcD/weAAcODOB/4PA',
-  'A4cGcDhw+AAcODOBw4fA', 'A4cGcDgA/AAcODOBwAfg', 'A4cGcDwB3AAcODOB4A7g',
-  'A4cGcD/hzgAcODOB/w5w', 'A4cGcA/xjgAcODOAf4xw', 'A4cGcADz/gAcODOAB5/w',
-  'A4cGcABzhwAcODOAA5w4', 'A4cOcDBzBwAcOHOBg5g4', 'A4P+cD/3AwAcH/OB/7gY',
-  'A4H8f//nA4AcD+P//zgc', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
-  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
-  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
-  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'P/8GcB/weAH/+DOA/4PA',
-  'A4cGcD/weAAcODOB/4PA', 'A4cGcDhw+AAcODOBw4fA', 'A4cGcDgA/AAcODOBwAfg',
-  'A4cGcDwB3AAcODOB4A7g', 'A4cGcD/hzgAcODOB/w5w', 'A4cGcA/xjgAcODOAf4xw',
-  'A4cGcADz/gAcODOAB5/w', 'A4cGcABzhwAcODOAA5w4', 'A4cOcDBzBwAcOHOBg5g4',
-  'A4P+cD/3AwAcH/OB/7gY', 'A4H8f//nA4AcD+P//zgc', 'AAAAAAAAAAAAAAAAAAAA',
-  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
-  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
-  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
-  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
-  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
-  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA'
-];
+function img2array(path) {
+  // #000000 pixels are false
+  // all others are true
+  const pixel2boolean = (pixels, row, col) => {
+    if (pixels.get(col, row, 0) > 0 ||
+	pixels.get(col, row, 1) > 0 ||
+	pixels.get(col, row, 2) > 0)
+      return true;
+    return false;
+  };
 
-
-function toArrayOfArrays(drawing) {
-  return drawing.map(line => line.split('').map(x => Number(x)));
+  return new Promise((resolve, reject) => {
+    getPixels(path, (err, pixels) => {
+      if (err)
+	reject(`failed to open image ${path}`);
+      console.log(err, pixels);
+      const [ cols, rows, channels ] = pixels.shape;
+      
+      const result = [];
+      
+      for (let i=0; i<rows; i++) {
+	const row = [];
+	for (let j=0; j<cols; j++) {
+	  row.push(pixel2boolean(pixels, i, j));
+	}
+	result.push(row);
+      }
+      resolve(result);
+    });
+  });
 }
 
 
-function toEncoded(drawing) {
-  const arr = toArrayOfArrays(drawing);
-  return arr.map(lineArray => ArrayEncode(lineArray));
+function img2encoded(path) {
+  return img2array(path)
+    .then(array => array.map(row => arrayEncode(row)));
 }
 
 
-module.exports = [ drawing_TULSA ];
+function loadDrawings() {
+  return readdir('drawings')
+    .then(files => {
+      const drawings = [];
+      for (let filename of files) {
+	drawings.push(img2encoded(`drawings/${filename}`));
+      }
+      return Promise.all(drawings);
+    });
+}
+
+
+module.exports = loadDrawings;

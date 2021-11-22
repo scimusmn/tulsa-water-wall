@@ -1,5 +1,4 @@
 const Arduino = require('./arduino.js');
-const DefaultDrawings = require('./DefaultDrawings.js');
 
 class WallMode {
   static WaitForReady = new WallMode('Wait for Ready');
@@ -15,7 +14,7 @@ class WallMode {
 }
 
 class WaterWall {
-  constructor(log = false) {
+  constructor(DefaultDrawings, log = false) {
     this.state = {
       queue: [],
       mode: WallMode.WaitForReady,
@@ -25,6 +24,7 @@ class WaterWall {
 
     this.arduino = new Arduino.Mega();
     this.arduino.log = log;
+    this.DefaultDrawings = DefaultDrawings;
     this.onRxReady = this.onRxReady.bind(this);
     this.onAcknowledgeLine = this.onAcknowledgeLine.bind(this);
   }
@@ -33,7 +33,7 @@ class WaterWall {
     return this.arduino.open().then(() => {
       this.arduino.on('rx-ready', this.onRxReady);
       this.arduino.on('acknowledge-line', this.onAcknowledgeLine);
-    });
+    })
   }
 
   _sendLine() {
@@ -56,8 +56,8 @@ class WaterWall {
     this.arduino.send('begin-drawing', '1');
 
     if (this.state.queue.length === 0) {
-      this.state.queue.push(DefaultDrawings[this.state.nextDefault]);
-      this.state.nextDefault = (this.state.nextDefault + 1) % DefaultDrawings.length;
+      this.state.queue.push(this.DefaultDrawings[this.state.nextDefault]);
+      this.state.nextDefault = (this.state.nextDefault + 1) % this.DefaultDrawings.length;
     }
 
     this.state.lineIndex = this.state.queue[0].length - 1;

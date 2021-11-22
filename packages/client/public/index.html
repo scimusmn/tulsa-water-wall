@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Alternative Kiosk</title>
+
+    <link rel="stylesheet" href="style.css" />
+    
+    <script type="text/javascript" src="./state.js"></script>
+    <script type="text/javascript" src="./Shapes.js"></script>
+    <script type="text/javascript" src="./Buttons.js"></script>
+    <script type="text/javascript" src="./Canvas.js"></script>    
+    <script type="text/javascript" src="./App.js"></script>
+  </head>
+  <body>
+    <div id="sharing-overlay" class="hidden">
+      <h1>Watch the wall for your design!</h1>
+    </div>
+    <div class="row">
+      <div class="column">
+	
+	<div id="mode-line" class="button">
+	  Line
+	</div>
+	<div id="mode-circle" class="button">
+	  Circle
+	</div>
+	<div id="mode-rectangle" class="button">
+	  Rectangle
+	</div>
+	<div id="mode-polyline" class="button">
+	  Smooth Line
+	</div>
+	
+      </div>
+      <canvas id="drawing-canvas"></canvas>
+      <div class="column">
+
+	<div id="button-undo" class="button">
+	  Undo
+	</div>
+	<div id="button-negative" class="button">
+	  Negative
+	</div>
+	<div id="button-clear" class="button">
+	  Clear
+	</div>
+	<div id="button-share" class="button">
+	  Share
+	</div>
+
+      </div>
+    </div>
+  </body>
+</html>
