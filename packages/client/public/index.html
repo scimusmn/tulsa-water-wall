@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <title>Alternative Kiosk</title>
 
-    <link rel="stylesheet" href="style.css" />
-    
+    <link rel="stylesheet" href="css/index.css" />
+
     <script type="text/javascript" src="./state.js"></script>
     <script type="text/javascript" src="./Shapes.js"></script>
     <script type="text/javascript" src="./Buttons.js"></script>
-    <script type="text/javascript" src="./Canvas.js"></script>    
+    <script type="text/javascript" src="./Canvas.js"></script>
     <script type="text/javascript" src="./App.js"></script>
   </head>
   <body>
@@ -17,39 +17,46 @@
       <h1>Watch the wall for your design!</h1>
     </div>
     <div class="row">
-      <div class="column">
-	
-	<div id="mode-line" class="button">
-	  Line
-	</div>
-	<div id="mode-circle" class="button">
-	  Circle
-	</div>
-	<div id="mode-rectangle" class="button">
-	  Rectangle
-	</div>
-	<div id="mode-polyline" class="button">
-	  Smooth Line
-	</div>
-	
-      </div>
-      <canvas id="drawing-canvas"></canvas>
-      <div class="column">
 
-	<div id="button-undo" class="button">
+      <div class="column">
+	<div id="button-draw" class="button">
+	  <img src="images/icon-draw.svg">
+	</div>
+	<div id="button-erase" class="button">
+	  <img src="images/icon-erase.svg">
+	</div>
+      </div>
+
+
+      <div class="column">
+	<h1>Design the water wall!</h1>
+	<canvas id="drawing-canvas"></canvas>
+      </div>
+
+
+      <div class="column">
+	<div id="button-undo" class="button right selected">
+	  <img src="images/icon-undo.svg" height="45px">
 	  Undo
 	</div>
-	<div id="button-negative" class="button">
-	  Negative
-	</div>
-	<div id="button-clear" class="button">
-	  Clear
-	</div>
-	<div id="button-share" class="button">
-	  Share
+
+	<div id="button-flip" class="button right selected">
+	  <img src="images/icon-flip.svg" height="45px">
+	  Flip
 	</div>
 
+	<div id="button-clear" class="button right selected">
+	  <img src="images/icon-trash.svg" height="45px">
+	  Clear
+	</div>
+
+	<div id="button-share" class="button right selected">
+	  <img src="images/icon-arrow-up.svg" height="45px">
+	  Share
+	</div>
       </div>
+
+
     </div>
   </body>
 </html>

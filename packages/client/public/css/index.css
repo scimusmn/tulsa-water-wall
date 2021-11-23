@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tulsa Discovery Lab default font */
+@font-face {
+    font-family: 'Brandon Grotesque Black';
+    src: local('Brandon Grotesque Black'), url(fonts/brandon-grotesque-black.woff2) format('woff2');
+}
+
+:root,
+#root {
+    --blue: #00447d;
+    --blue-light: #4ba6de;
+    --yellow: #ff0;
+    --white: #fff;
+}
+
+
+html {
+    /*cursor: none !important;*/
+}
+
+body,
+html {
+    height: 100%;
+}
+
+body {
+    background: var(--blue);
+    /*cursor: none;*/
+    overflow: hidden;
+    user-select: none;
+    color: var(--white);
+}
+
+h1 {
+    font-family: "Brandon Grotesque Black", sans-serif;
+    font-size: 60px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *
+ * buttons
+ *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
+
+.button {
+    font-size: 3em;
+    text-align: left;
+    margin: auto;
+}
+
+.button.right {
+    border: 2px solid var(--white);
+    border-radius: 0.5em;
+    width: 5.5em;
+    margin: 2em;
+}
+
+.button.left {
+    padding: 2em .5em;
+    margin: 2em;
+}
+
+#button-share {
+    position: absolute;
+    bottom: 0px;
+    color: var(--blue);
+    background-color: var(--white);
+}
+
+.button.selected {
+    color: var(--blue);
+    background-color: var(--white);
+}
+
+.button img {
+    padding: 0.2em 0.5em 0.1em 0.8em;
+}
+
+.button.selected img {
+    filter: brightness(0) saturate(100%) invert(21%) sepia(100%) saturate(1144%) hue-rotate(183deg) brightness(91%) contrast(103%);
+}
+
+#button-share.selected {
+    color: var(--white);
+    background-color: var(--blue);
+}
+
+#button-share.selected img {
+    filter: brightness(0) saturate(100%) invert(100%);
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *
+ * layout
+ *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
+
+.row {
+    display: flex;
+}
+
+.column {
+    flex: 50%;
+    text-align: center;
+}
+
+#drawing-canvas {
+    border: 1px solid red;
+}
+
+.hidden {
+    display: none;
+}
+
+#sharing-overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+#sharing-overlay h1 {
+    padding: 10em;
+    margin: auto;
+}

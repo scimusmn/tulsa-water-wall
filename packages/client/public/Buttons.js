@@ -1,48 +1,20 @@
-const RenderModeButtons = (dock, state) => {
-  const { buttonLine, buttonCircle, buttonRectangle, buttonPolyline } = dock;
-  const { mode } = state;
+const RenderLeftButtons = (dock, state) => {
+  const { buttonPolyline } = dock;
+  const { mode, negative } = state;
 
-  switch (mode) {
-  case DrawingMode.LineIdle:
-  case DrawingMode.LineDrawing:
-    buttonLine.classList.add('buttonSelected');
-    buttonCircle.classList.remove('buttonSelected');
-    buttonRectangle.classList.remove('buttonSelected');
+  if (negative) {
     buttonPolyline.classList.remove('buttonSelected');
-    break;
-
-  case DrawingMode.CircleIdle:
-  case DrawingMode.CircleDrawing:
-    buttonLine.classList.remove('buttonSelected');
-    buttonCircle.classList.add('buttonSelected');
-    buttonRectangle.classList.remove('buttonSelected');
-    buttonPolyline.classList.remove('buttonSelected');
-    break;
-
-  case DrawingMode.RectangleIdle:
-  case DrawingMode.RectangleDrawing:
-    buttonLine.classList.remove('buttonSelected');
-    buttonCircle.classList.remove('buttonSelected');
-    buttonRectangle.classList.add('buttonSelected');
-    buttonPolyline.classList.remove('buttonSelected');
-    break;
-
-  case DrawingMode.PolylineIdle:
-  case DrawingMode.PolylineDrawing:
-    buttonLine.classList.remove('buttonSelected');
-    buttonCircle.classList.remove('buttonSelected');
-    buttonRectangle.classList.remove('buttonSelected');
+    buttonNegative.classList.add('buttonSelected');
+  }
+  else {
     buttonPolyline.classList.add('buttonSelected');
-    break;    
-
-  default:
-    break;
+    buttonNegative.classList.remove('buttonSelected');
   }
 }
 
 
-const RenderNegativeButton = (dock, state) => {
-  const { buttonNegative } = dock;
+const RenderRightButtons = (dock, state) => {
+  const { buttonNegative, buttonShare } = dock;
   const { currentShape } = state;
   const { negative } = currentShape;
 

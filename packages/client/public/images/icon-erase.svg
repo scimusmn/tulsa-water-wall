@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 148.85 137.85">
+  <defs>
+    <style>
+      .cls-1,.cls-2{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;}.cls-1{stroke-width:2.77px;}.cls-2{stroke-width:2.85px;}
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Layer_1-2" data-name="Layer 1">
+      <polygon class="cls-1"
+               points="68.94 33.69 60.12 42.7 37.44 115.26 52.58 120.03 75.26 47.47 73.15 35.02 68.94 33.69" />
+      <path class="cls-1"
+            d="M36.57,132.88,43.26,135a4.43,4.43,0,0,0,5.55-2.91l2.11-6.74-15.14-4.77-2.11,6.73A4.46,4.46,0,0,0,36.57,132.88Z" />
+      <polyline class="cls-2" points="70.7 67.07 77.37 66.77 84.88 62.35" />
+      <ellipse class="cls-2" cx="94.56" cy="18.95" rx="17.46" ry="17.53" />
+      <line class="cls-2" x1="101.37" y1="40.97" x2="101.82" y2="35.43" />
+      <path class="cls-2"
+            d="M101.91,92.34l5.34-1a9.06,9.06,0,0,0,7.32-10.52L108.78,48.2a7.06,7.06,0,0,0-8.19-5.74L88.9,44.55a7.09,7.09,0,0,0-5.72,8.23L88.53,83A11.55,11.55,0,0,0,101.91,92.34Z" />
+      <polyline class="cls-2" points="95.83 52.9 83.04 71.73 58.63 75.75" />
+      <polyline class="cls-2" points="102.35 86.63 87.47 110.22 93.47 124.73" />
+      <path class="cls-2"
+            d="M74.05,124.79H93.5a0,0,0,0,1,0,0v2.43a7.14,7.14,0,0,1-7.14,7.14H74.05a0,0,0,0,1,0,0v-9.57A0,0,0,0,1,74.05,124.79Z"
+            transform="translate(168.46 258.56) rotate(179.6)" />
+      <polyline class="cls-2" points="105.04 91.78 106.11 107.26 117.2 124.73" />
+      <path class="cls-2"
+            d="M97.79,124.79h19.45a0,0,0,0,1,0,0v2.43a7.14,7.14,0,0,1-7.14,7.14H97.79a0,0,0,0,1,0,0v-9.57A0,0,0,0,1,97.79,124.79Z"
+            transform="translate(215.93 258.4) rotate(179.6)" />
+      <line class="cls-2" x1="147.42" y1="136.42" x2="1.42" y2="136.42" />
+    </g>
+  </g>
+</svg>

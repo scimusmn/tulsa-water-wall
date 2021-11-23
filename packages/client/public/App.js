@@ -10,11 +10,9 @@ const AppInit = () => {
   dock.canvas.width = window.innerWidth*2/3;
   dock.canvas.height = (2/3) * dock.canvas.width;
   dock.ctx = dock.canvas.getContext('2d');
+}
 
-  dock.buttonLine = document.getElementById('mode-line');
-  dock.buttonCircle = document.getElementById('mode-circle');
-  dock.buttonRectangle = document.getElementById('mode-rectangle');
-  dock.buttonPolyline = document.getElementById('mode-polyline');
+/*  dock.buttonPolyline = document.getElementById('mode-polyline');
 
   dock.buttonUndo = document.getElementById('button-undo');
   dock.buttonNegative = document.getElementById('button-negative');
@@ -46,23 +44,14 @@ const AppInit = () => {
 
 
   // mode buttons
-  dock.buttonLine.addEventListener('click', e => {
-    setState({ mode: DrawingMode.LineIdle });
-    AppUpdate();
-  });
-
-  dock.buttonCircle.addEventListener('click', e => {
-    setState({ mode: DrawingMode.CircleIdle });
-    AppUpdate();
-  });
-
-  dock.buttonRectangle.addEventListener('click', e => {
-    setState({ mode: DrawingMode.RectangleIdle });
-    AppUpdate();
-  });
-
   dock.buttonPolyline.addEventListener('click', e => {
     setState({ mode: DrawingMode.PolylineIdle });
+    AppUpdate();
+  });
+
+  dock.buttonNegative.addEventListener('click', e => {
+    const { negative } = state.currentShape;
+    setState({ currentShape: { negative: !negative } });
     AppUpdate();
   });
 
@@ -78,12 +67,6 @@ const AppInit = () => {
       () =>
 	dock.buttonUndo.classList.remove('buttonSelected'),
       100);
-    AppUpdate();
-  });
-
-  dock.buttonNegative.addEventListener('click', e => {
-    const { negative } = state.currentShape;
-    setState({ currentShape: { negative: !negative } });
     AppUpdate();
   });
 
@@ -133,5 +116,5 @@ const AppUpdate = () => {
   if (update) setState(update);
 }
 
-
+*/
 window.onload = () => AppInit();
