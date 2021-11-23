@@ -11,7 +11,7 @@ ShiftRegisterManager registers;
 #define CLOCK_PIN 10
 #define DATA_PIN 12
 #define LINE_SIZE 15
-#define N_LINES 80
+#define N_LINES 40
 
 #define LINE_ON 10
 #define LINE_OFF 1
@@ -25,6 +25,9 @@ void beginDrawing() {
 }
 
 void decodeLine(const char* line) {
+   if (current_line >= N_LINES ||
+       current_line % 2) // halve the vertical resolution
+      return;
    unsigned int size = decode_base64(line, drawing[current_line]);
    serial.send("decoded-bytes", (int) size);
    current_line += 1;
