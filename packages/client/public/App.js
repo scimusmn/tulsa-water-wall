@@ -19,7 +19,7 @@ const AppInit = () => {
   const on = (element, event, cb) => element.addEventListener(event, e => { cb(e); AppUpdate(); });
 
   on(dock.canvas, 'mousedown', e => setState({mouse: { down: true }}));
-  on(dock.canvas, 'mouseup', e => setState({mouse: { down: false }}));
+  on(document, 'mouseup', e => setState({mouse: { down: false }}));
   on(dock.canvas, 'mousemove', e => {
     setState({
       mouse: { position: { x: e.offsetX, y: e.offsetY } }
@@ -58,12 +58,12 @@ const AppInit = () => {
     const data = ExtractCanvasData(dock, state);
     console.log(data);
     const ws = new WebSocket('ws://192.168.1.101:8081/ws');
-    ws.onopen(() => {
+    ws.onopen = () => {
       ws.send(JSON.stringify(data));
-    });
+    };
     setState({ sharing: true });
     window.setTimeout(
-      () => setState({ sharing: false }), 1000
+      () => setState({ sharing: false }), 5000
     )
   });
 
@@ -99,7 +99,7 @@ const AppUpdate = () => {
   if (down) {
     if (line.points.length === 0) {
       update = {
-	line: { negative: erasing, points: [{x, y}] },
+	line: { negative: erasing, points: [{x, y}, {x, y}] },
       };
     }
     else {
