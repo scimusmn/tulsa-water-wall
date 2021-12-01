@@ -57,7 +57,7 @@ let DefaultDrawings;
   wsServer.on('connection', socket => {
     socket.on('message', message => {
       const grid = JSON.parse(message.toString());
-      const drawing = encodeDrawing(arrayDrawing(grid));
+      const drawing = encodeDrawing(grid);
       console.log(drawing);
       wall.push(drawing);
     });
