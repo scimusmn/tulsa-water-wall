@@ -55,6 +55,12 @@ const AppInit = () => {
   });
 
   on(dock.shareButton, 'click', e => {
+    const data = ExtractCanvasData(dock, state);
+    console.log(data);
+    const ws = new WebSocket('ws://192.168.1.101:8081/ws');
+    ws.onopen(() => {
+      ws.send(JSON.stringify(data));
+    });
     setState({ sharing: true });
     window.setTimeout(
       () => setState({ sharing: false }), 1000
