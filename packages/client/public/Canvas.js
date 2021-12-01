@@ -48,8 +48,8 @@ const ExtractCanvasData = (dock, state) => {
   const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
   const getPixel = (x, y) => {
-    const rowOffset = canvas.width * y;
-    const pixelIndex = rowOffset + x;
+    const rowOffset = canvas.width * Math.floor(y);
+    const pixelIndex = rowOffset + Math.floor(x);
     const dataIndex = 4 * pixelIndex;
     return {
       r: pixels.data[dataIndex+0],
