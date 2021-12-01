@@ -6,115 +6,114 @@ const dock = {};
 
 const AppInit = () => {
   // load document elements
-  dock.canvas = document.getElementById('drawing-canvas');
-  dock.canvas.width = window.innerWidth*2/3;
-  dock.canvas.height = (2/3) * dock.canvas.width;
-  dock.ctx = dock.canvas.getContext('2d');
-}
+  load_dom();
 
-/*  dock.buttonPolyline = document.getElementById('mode-polyline');
+  // setup canvas size
+  const width = 0.7 * window.innerWidth;
+  const height = 0.66 * width;
+  dock.canvas.width = width;
+  dock.canvas.height = height;
+  
 
-  dock.buttonUndo = document.getElementById('button-undo');
-  dock.buttonNegative = document.getElementById('button-negative');
-  dock.buttonClear = document.getElementById('button-clear');
-  dock.buttonShare = document.getElementById('button-share');
+  // register event listeners
+  const on = (element, event, cb) => element.addEventListener(event, e => { cb(e); AppUpdate(); });
 
-  dock.sharingOverlay = document.getElementById('sharing-overlay');
-
-  // attach event listeners
-  dock.canvas.addEventListener('mousemove', e => {
+  on(dock.canvas, 'mousedown', e => setState({mouse: { down: true }}));
+  on(dock.canvas, 'mouseup', e => setState({mouse: { down: false }}));
+  on(dock.canvas, 'mousemove', e => {
     setState({
-      mousePos: {
-	x: e.offsetX,
-	y: e.offsetY,
-      }
-    });
-    AppUpdate();
+      mouse: { position: { x: e.offsetX, y: e.offsetY } }
+    })
   });
 
-  document.addEventListener('mousedown', e => {
-    setState({ mouseDown: true });
-    AppUpdate();
+  on(dock.drawButton, 'click', e => setState({ erasing: false }));
+  on(dock.eraseButton, 'click', e => setState({ erasing: true }));
+
+  const flash = button => {
+    select(button);
+    window.setTimeout(() => deselect(button), 100);
+  }
+  
+  on(dock.undoButton, 'click', e => {
+    const { lines } = state;
+    setState({ lines: lines.slice(0, -1) });
+    flash(dock.undoButton);
   });
 
-  document.addEventListener('mouseup', e => {
-    setState({ mouseDown: false });
-    AppUpdate();
+  on(dock.flipButton, 'click', e => {
+    const { flipped } = state;
+    setState({ flipped: !flipped });
+    if (flipped)
+      deselect(dock.flipButton);
+    else
+      select(dock.flipButton);
   });
 
-
-  // mode buttons
-  dock.buttonPolyline.addEventListener('click', e => {
-    setState({ mode: DrawingMode.PolylineIdle });
-    AppUpdate();
+  on(dock.clearButton, 'click', e => {
+    setState({ lines: [], erasing: false, flipped: false });
+    flash(dock.clearButton);
   });
 
-  dock.buttonNegative.addEventListener('click', e => {
-    const { negative } = state.currentShape;
-    setState({ currentShape: { negative: !negative } });
-    AppUpdate();
-  });
-
-
-  // right buttons
-  dock.buttonUndo.addEventListener('click', e => {
-    const { shapes } = state;
-    setState({
-      shapes: shapes.slice(0, -2)
-    });
-    dock.buttonUndo.classList.add('buttonSelected');
-    setTimeout(
-      () =>
-	dock.buttonUndo.classList.remove('buttonSelected'),
-      100);
-    AppUpdate();
-  });
-
-  dock.buttonClear.addEventListener('click', e => {
-    setState({ shapes: [] });
-    dock.buttonClear.classList.add('buttonSelected');
-    setTimeout(
-      () =>
-	dock.buttonClear.classList.remove('buttonSelected'),
-      100);
-    AppUpdate();
-  });
-
-  dock.buttonShare.addEventListener('click', e => {
-    const data = ExtractCanvasData(dock, state);
-    console.log(data);
-    const ws = new WebSocket('wss://localhost:8000');
-    ws.onopen = () => { ws.send(JSON.stringify(data)); };
+  on(dock.shareButton, 'click', e => {
     setState({ sharing: true });
-    setTimeout(() => setState({ sharing: false }), 10000);
+    window.setTimeout(
+      () => setState({ sharing: false }), 1000
+    )
   });
 
   // attach state listeners
-  onStateUpdate('currentShape', () => RenderCanvas(dock, state));
-  onStateUpdate('shapes', () => RenderCanvas(dock, state));
+  onStateUpdate('erasing', () => RenderLeftButtons(dock, state));
+  onStateUpdate('flipped', () => RenderRightButtons(dock, state));
+  onStateUpdate('sharing', () => RenderRightButtons(dock, state));
+  onStateUpdate('sharing', () => RenderOverlay(dock, state));
+  onStateUpdate('line',    () => RenderCanvas(dock, state));
+  onStateUpdate('lines',   () => RenderCanvas(dock, state));
+  onStateUpdate('flipped', () => RenderCanvas(dock, state));
 
-  onStateUpdate('mode', () => RenderModeButtons(dock, state));
-  onStateUpdate('currentShape', () => RenderNegativeButton(dock, state));
-  onStateUpdate('sharing', () => RenderShareButton(dock, state));
-
-  // initial state
+  // set initial state
   setState({
-    mousePos: Point(0, 0),
-    mouseDown: false,
-
-    mode: DrawingMode.RectangleIdle,
-    currentShape: { type: 'none', negative: false },
-    shapes: [],
+    mouse: {
+      position: { x:0, y:0 },
+      down: false,
+    },
+    erasing: false,
+    flipped: false,
+    line: { negative: false, points: [] },
+    lines: [],
   });
-}
-
+}  
 
 const AppUpdate = () => {
   let update;
   
-  update = ShapesUpdate(dock, state);
-  if (update) setState(update);
+  const { mouse, line, lines, erasing } = state;
+  const { down, position } = mouse;
+  const { x, y } = position;
+
+  if (down) {
+    if (line.points.length === 0) {
+      update = {
+	line: { negative: erasing, points: [{x, y}] },
+      };
+    }
+    else {
+      update = {
+	line: { points: [...(line.points), {x, y}] }
+      };
+    }
+  }
+  else {
+    if (line.points.length !== 0) {
+      const { negative, points } = line;
+      update = {
+	line: { points: [] },
+	lines: [...lines, { negative, points: [...points] } ],
+      }
+    }
+  }
+
+  if (update)
+    setState(update);
 }
 
-*/
 window.onload = () => AppInit();

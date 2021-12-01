@@ -1,46 +1,19 @@
-const COLOR_NEG = { r: 70, g: 150, b: 255 };
-const COLOR_POS = { r: 255, g: 255, b: 255 };
+const COLOR_NEG = { r: 255, g: 255, b: 255 };
+const COLOR_POS = { r: 70, g: 150, b: 255 };
 
 const color2str = color => {
   return `rgb(${color.r},${color.g},${color.b})`;
 }
 
-const RenderLine = (ctx, line) => {
-  ctx.beginPath();
-
-  const x0 = line.p0.x;
-  const y0 = line.p0.y;
-  ctx.moveTo(x0, y0);
-
-  const x1 = line.p1.x;
-  const y1 = line.p1.y;
-  ctx.lineTo(x1, y1);
-  ctx.stroke();
-}
-
-
-const RenderCircle = (ctx, circle) => {
-  ctx.beginPath();
-  const { x, y } = circle.center;
-  ctx.arc(x, y, circle.radius, 0, 2*Math.PI);
-  ctx.fill();
-}
-
-
-const RenderRectangle = (ctx, rectangle) => {
-  const { x, y } = rectangle.p0;
-  const width = rectangle.p1.x - x;
-  const height = rectangle.p1.y - y;
-
-  ctx.fillRect(x, y, width, height);
-}
-
-
-const RenderPolyline = (ctx, polyline) => {
-  const { points } = polyline;
-
+const RenderLine = (ctx, line, flipped) => {
+  const { points } = line;
   if (points.length < 2)
     return;
+
+  const pos = flipped ? COLOR_NEG : COLOR_POS;
+  const neg = flipped ? COLOR_POS : COLOR_NEG;
+
+  ctx.strokeStyle = color2str(line.negative ? neg : pos);
 
   ctx.beginPath();
   ctx.moveTo(points[0].x, points[0].y);
@@ -54,51 +27,17 @@ const RenderPolyline = (ctx, polyline) => {
 }
 
 
-const RenderShape = (ctx, shape) => {
-  if (shape.negative) {
-    ctx.fillStyle = color2str(COLOR_NEG);
-    ctx.strokeStyle = color2str(COLOR_NEG);
-  }
-  else {
-    ctx.fillStyle = color2str(COLOR_POS);
-    ctx.strokeStyle = color2str(COLOR_POS);
-  }
-  
-  switch (shape.type) {
-  case 'line':
-    RenderLine(ctx, shape);
-    break;
-
-  case 'circle':
-    RenderCircle(ctx, shape);
-    break;
-
-  case 'rectangle':
-    RenderRectangle(ctx, shape);
-    break;
-
-  case 'polyline':
-    RenderPolyline(ctx, shape);
-    break;    
-
-  default:
-    //do nothing
-    break;
-  }
-}
-
-
 const RenderCanvas = (dock, state) => {
   const { canvas, ctx } = dock;
-  const { currentShape, shapes } = state;
+  const { line, lines, flipped } = state;
 
   ctx.lineWidth = 60;
   ctx.lineCap = 'round';
-  ctx.fillStyle = color2str(COLOR_NEG);
+  ctx.fillStyle = color2str(flipped ? COLOR_POS : COLOR_NEG);
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  shapes.forEach(shape => RenderShape(ctx, shape));
-  RenderShape(ctx, currentShape);
+  lines.forEach(line => RenderLine(ctx, line, flipped));
+  RenderLine(ctx, line, flipped);
 }
 
 

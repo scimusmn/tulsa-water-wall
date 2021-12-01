@@ -6,7 +6,7 @@ const stateListeners = {};
 const updateState = (state, update) => Object.keys(update).forEach(
   key => {
     if (typeof(state[key]) === 'object'
-	&& typeof(state[key]) !== null
+	&& typeof(state[key]) !== 'null'
 	&& typeof(update[key]) === 'object'
 	&& update[key] !== null
 	&& !(Array.isArray(state[key]))
