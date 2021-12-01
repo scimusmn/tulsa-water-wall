@@ -1,0 +1,49 @@
+body {
+    font-family: sans-serif;
+}
+
+.button {
+    font-size: 1.5em;
+    text-align: center;
+    background-color: lightblue;
+    padding: 2em .5em;
+    margin: 2em;
+}
+
+
+.buttonSelected {
+    background-color: pink;
+    
+}
+
+.row {
+    display: flex;
+}
+
+.column {
+    flex: 50%;
+}
+
+#drawing-canvas {
+    border: 1px solid red;
+}
+
+.hidden {
+    display: none;
+}
+
+#sharing-overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+#sharing-overlay h1 {
+    padding: 10em;
+    margin: auto;
+}

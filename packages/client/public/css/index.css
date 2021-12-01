@@ -1,0 +1,206 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tulsa Discovery Lab default font */
+@font-face {
+    font-family: 'Brandon Grotesque Black';
+    src: local('Brandon Grotesque Black'), url(fonts/brandon-grotesque-black.woff2) format('woff2');
+}
+
+:root,
+#root {
+    --blue: #00447d;
+    --blue-light: #00a9e0;
+    --yellow: #ff0;
+    --white: #fff;
+}
+
+
+html {
+    /*cursor: none !important;*/
+}
+
+body,
+html {
+    height: 100%;
+}
+
+body {
+    background: var(--blue);
+    /*cursor: none;*/
+    overflow: hidden;
+    user-select: none;
+    color: var(--white);
+    font-family: sans-serif;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *
+ * title
+ *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
+
+#title-container {
+    height: 6em;
+}
+
+#title {
+    position: relative;
+    padding: 2em 0 0 0;
+    top: -5em;
+    background-color: var(--blue-light);
+    border-radius: 2em;
+    margin: auto;
+    width: 70%;
+}
+
+#title h1 {
+    font-family: "Brandon Grotesque Black", sans-serif;
+    font-size: 60px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *
+ * canvas
+ *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
+
+#canvas-div {
+    margin: auto;
+    width: 70%;
+    height: 46%;
+}
+
+#drawing-canvas {
+    width: 100%;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *
+ * buttons
+ *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
+
+.button {
+    font-size: 2.5em;
+    text-align: left;
+    border: 2px solid var(--white);
+    border-radius: 0.7em;
+}
+
+/* left buttons */
+
+.button.left {
+    text-align: center;
+    padding: 0.5em;
+    margin: 0 0.5em 1em 0.5em;
+}
+
+.button.left.selected {
+    background-color: var(--blue-light);
+    font-weight: bold;
+    border: 4px solid var(--white);
+}
+
+#buttons-left {
+    position: absolute;
+    left: 0;
+    bottom: 15%;
+    width: 15%;
+}
+
+
+/* right buttons */
+
+.button.right {
+    margin: 0 0 1em 0;
+    padding: 0.2em;
+}
+
+.button.right.selected {
+    color: var(--blue);
+    background-color: var(--white);
+}
+
+.button.right img {
+    margin: 0 0 0 0.5em;
+    width: 0.7em;
+}
+
+.button.right span {
+    margin: 0 0 0 0.5em;
+}
+
+#buttons-right {
+    position: absolute;
+    right: 1em;
+    bottom: 40%;
+    width: 13%;
+}
+
+#button-share {
+    width: 12%;
+    position: absolute;
+    bottom: 0px;
+    right: 0.5em;
+    color: var(--blue);
+    background-color: var(--white);
+}
+
+
+.button.right.selected img {
+    filter: brightness(0) saturate(100%) invert(21%) sepia(100%) saturate(1144%) hue-rotate(183deg) brightness(91%) contrast(103%);
+}
+
+#button-share.selected {
+    color: var(--white);
+    background-color: var(--blue);
+}
+
+#button-share.selected img {
+    filter: brightness(0) saturate(100%) invert(100%);
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *
+ * layout
+ *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
+
+.blurred {
+    filter: blur(10px);
+}
+
+.hidden {
+    display: none;
+}
+
+#sharing-overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    text-align: center;
+}
+
+#sharing-overlay div {
+    color: var(--blue);
+    background-color: var(--white);
+    border: 4px solid var(--blue-light);
+    border-radius: 0.5em;
+    width: 30%;
+    margin: 20% auto;
+    padding: 2em;
+    font-size: 2em;
+    filter: drop-shadow(0 0 1em gray);
+}

@@ -11,9 +11,10 @@ ShiftRegisterManager registers;
 #define CLOCK_PIN 10
 #define DATA_PIN 12
 #define LINE_SIZE 15
-#define N_LINES 80
+#define N_LINES 40
 
-#define LINE_TIME 16
+#define LINE_ON 10
+#define LINE_OFF 1
 
 byte drawing[N_LINES][LINE_SIZE];
 unsigned int current_line = 0;
@@ -24,6 +25,9 @@ void beginDrawing() {
 }
 
 void decodeLine(const char* line) {
+   if (current_line >= N_LINES ||
+       current_line % 2) // halve the vertical resolution
+      return;
    unsigned int size = decode_base64(line, drawing[current_line]);
    serial.send("decoded-bytes", (int) size);
    current_line += 1;
@@ -34,9 +38,10 @@ void publishDrawing() {
    serial.send("rx-ready", "0");
    for (int i=0; i<N_LINES; i++) {
       registers.write(drawing[i], LINE_SIZE);
-      delay(LINE_TIME);
+      delay(LINE_ON);
+      registers.clear(LINE_SIZE);
+      delay(LINE_OFF);
    }
-   registers.clear(LINE_SIZE);
    serial.send("rx-ready", "1");
 }
 
@@ -53,6 +58,18 @@ void setup() {
    serial.send("rx-ready", "1");
 }
 
+
+const int ON_TIME = 0;
+const int OFF_TIME = 250;
+const byte line[LINE_SIZE];
+
 void loop() {
+   /*   memset(line, 0xff, LINE_SIZE);
+   registers.write(line, LINE_SIZE);
+   delay(ON_TIME);
+   memset(line, 0x00, LINE_SIZE);
+   registers.write(line, LINE_SIZE);
+   delay(OFF_TIME);*/
    serial.update();
+
 }

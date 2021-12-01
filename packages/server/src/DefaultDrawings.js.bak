@@ -1,0 +1,331 @@
+const ArrayEncode = require('./ArrayEncode.js');
+
+
+const drawing_TULSA = [
+  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
+  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
+  'P/8GcB/weAH/+DOA/4PA', 'A4cGcD/weAAcODOB/4PA', 'A4cGcDhw+AAcODOBw4fA',
+  'A4cGcDgA/AAcODOBwAfg', 'A4cGcDwB3AAcODOB4A7g', 'A4cGcD/hzgAcODOB/w5w',
+  'A4cGcA/xjgAcODOAf4xw', 'A4cGcADz/gAcODOAB5/w', 'A4cGcABzhwAcODOAA5w4',
+  'A4cOcDBzBwAcOHOBg5g4', 'A4P+cD/3AwAcH/OB/7gY', 'A4H8f//nA4AcD+P//zgc',
+  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
+  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
+  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
+  'AAAAAAAAAAAAAAAAAAAA', 'P/8GcB/weAH/+DOA/4PA', 'A4cGcD/weAAcODOB/4PA',
+  'A4cGcDhw+AAcODOBw4fA', 'A4cGcDgA/AAcODOBwAfg', 'A4cGcDwB3AAcODOB4A7g',
+  'A4cGcD/hzgAcODOB/w5w', 'A4cGcA/xjgAcODOAf4xw', 'A4cGcADz/gAcODOAB5/w',
+  'A4cGcABzhwAcODOAA5w4', 'A4cOcDBzBwAcOHOBg5g4', 'A4P+cD/3AwAcH/OB/7gY',
+  'A4H8f//nA4AcD+P//zgc', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
+  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
+  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
+  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'P/8GcB/weAH/+DOA/4PA',
+  'A4cGcD/weAAcODOB/4PA', 'A4cGcDhw+AAcODOBw4fA', 'A4cGcDgA/AAcODOBwAfg',
+  'A4cGcDwB3AAcODOB4A7g', 'A4cGcD/hzgAcODOB/w5w', 'A4cGcA/xjgAcODOAf4xw',
+  'A4cGcADz/gAcODOAB5/w', 'A4cGcABzhwAcODOAA5w4', 'A4cOcDBzBwAcOHOBg5g4',
+  'A4P+cD/3AwAcH/OB/7gY', 'A4H8f//nA4AcD+P//zgc', 'AAAAAAAAAAAAAAAAAAAA',
+  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
+  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
+  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
+  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
+  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA',
+  'AAAAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAA'
+];
+
+
+const drawing_Checkerboard1x1 = [
+  'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq',
+  'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV',
+  'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq',
+  'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV',
+  'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq',
+  'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV',
+  'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq',
+  'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV',
+  'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq',
+  'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV',
+  'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq',
+  'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV',
+  'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq',
+  'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV',
+  'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq',
+  'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV',
+  'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq',
+  'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV',
+  'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq',
+  'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV',
+  'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq',
+  'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV',
+  'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq',
+  'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV',
+  'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq',
+  'VVVVVVVVVVVVVVVVVVVV', 'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV',
+  'qqqqqqqqqqqqqqqqqqqq', 'VVVVVVVVVVVVVVVVVVVV'
+];
+
+
+const drawing_Checkerboard2x2 = [
+  'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz',
+  'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM',
+  'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM',
+  'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz',
+  'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz',
+  'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM',
+  'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM',
+  'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz',
+  'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz',
+  'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM',
+  'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM',
+  'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz',
+  'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz',
+  'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM',
+  'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM',
+  'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz',
+  'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz',
+  'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM',
+  'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM',
+  'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz',
+  'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz',
+  'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM',
+  'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM',
+  'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz',
+  'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz',
+  'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM',
+  'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz'
+];
+
+
+const drawing_Checkerboard3x3 = [
+  'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz',
+  'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM',
+  'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM',
+  'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz',
+  'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz',
+  'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM',
+  'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM',
+  'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz',
+  'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz',
+  'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM',
+  'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM',
+  'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz',
+  'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz',
+  'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM',
+  'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM',
+  'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz',
+  'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz',
+  'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM',
+  'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM',
+  'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz',
+  'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz',
+  'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM',
+  'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM',
+  'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz',
+  'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM', 'MzMzMzMzMzMzMzMzMzMz',
+  'MzMzMzMzMzMzMzMzMzMz', 'zMzMzMzMzMzMzMzMzMzM', 'zMzMzMzMzMzMzMzMzMzM',
+  'MzMzMzMzMzMzMzMzMzMz', 'MzMzMzMzMzMzMzMzMzMz'
+];
+
+
+const drawing_Checkerboard4x4 = [
+  '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw',
+  '8PDw8PDw8PDw8PDw8PDw', 'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P',
+  'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P', '8PDw8PDw8PDw8PDw8PDw',
+  '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw',
+  'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P',
+  'Dw8PDw8PDw8PDw8PDw8P', '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw',
+  '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw', 'Dw8PDw8PDw8PDw8PDw8P',
+  'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P',
+  '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw',
+  '8PDw8PDw8PDw8PDw8PDw', 'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P',
+  'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P', '8PDw8PDw8PDw8PDw8PDw',
+  '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw',
+  'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P',
+  'Dw8PDw8PDw8PDw8PDw8P', '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw',
+  '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw', 'Dw8PDw8PDw8PDw8PDw8P',
+  'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P',
+  '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw',
+  '8PDw8PDw8PDw8PDw8PDw', 'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P',
+  'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P', '8PDw8PDw8PDw8PDw8PDw',
+  '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw',
+  'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P',
+  'Dw8PDw8PDw8PDw8PDw8P', '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw',
+  '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw', 'Dw8PDw8PDw8PDw8PDw8P',
+  'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P',
+  '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw', '8PDw8PDw8PDw8PDw8PDw',
+  '8PDw8PDw8PDw8PDw8PDw', 'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P',
+  'Dw8PDw8PDw8PDw8PDw8P', 'Dw8PDw8PDw8PDw8PDw8P'
+];
+
+
+const drawing_Checkerboard5x5 = [
+  '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg',
+  '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg', 'B8HwfB8HwfB8HwfB8Hwf',
+  'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf',
+  'B8HwfB8HwfB8HwfB8Hwf', '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg',
+  '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg',
+  'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf',
+  'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf', '+D4Pg+D4Pg+D4Pg+D4Pg',
+  '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg',
+  '+D4Pg+D4Pg+D4Pg+D4Pg', 'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf',
+  'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf',
+  '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg',
+  '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg', 'B8HwfB8HwfB8HwfB8Hwf',
+  'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf',
+  'B8HwfB8HwfB8HwfB8Hwf', '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg',
+  '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg',
+  'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf',
+  'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf', '+D4Pg+D4Pg+D4Pg+D4Pg',
+  '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg',
+  '+D4Pg+D4Pg+D4Pg+D4Pg', 'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf',
+  'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf',
+  '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg',
+  '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg', 'B8HwfB8HwfB8HwfB8Hwf',
+  'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf',
+  'B8HwfB8HwfB8HwfB8Hwf', '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg',
+  '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg', '+D4Pg+D4Pg+D4Pg+D4Pg',
+  'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf',
+  'B8HwfB8HwfB8HwfB8Hwf', 'B8HwfB8HwfB8HwfB8Hwf'
+];
+
+
+const drawing_Checkerboard6x6 = [
+  '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A',
+  '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A',
+  'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/',
+  'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/',
+  '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A',
+  '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A',
+  'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/',
+  'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/',
+  '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A',
+  '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A',
+  'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/',
+  'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/',
+  '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A',
+  '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A',
+  'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/',
+  'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/',
+  '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A',
+  '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A',
+  'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/',
+  'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/',
+  '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A',
+  '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A',
+  'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/',
+  'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/',
+  '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A',
+  '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A', '/A/A/A/A/A/A/A/A/A/A',
+  'A/A/A/A/A/A/A/A/A/A/', 'A/A/A/A/A/A/A/A/A/A/'
+];
+
+
+const drawing_Checkerboard7x7 = [
+  '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+',
+  '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+',
+  '/gP4D+A/gP4D+A/gP4D+', 'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B',
+  'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B',
+  'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B', '/gP4D+A/gP4D+A/gP4D+',
+  '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+',
+  '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+',
+  'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B',
+  'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B',
+  'AfwH8B/AfwH8B/AfwH8B', '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+',
+  '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+',
+  '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+', 'AfwH8B/AfwH8B/AfwH8B',
+  'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B',
+  'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B',
+  '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+',
+  '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+',
+  '/gP4D+A/gP4D+A/gP4D+', 'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B',
+  'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B',
+  'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B', '/gP4D+A/gP4D+A/gP4D+',
+  '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+',
+  '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+',
+  'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B',
+  'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B',
+  'AfwH8B/AfwH8B/AfwH8B', '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+',
+  '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+',
+  '/gP4D+A/gP4D+A/gP4D+', '/gP4D+A/gP4D+A/gP4D+', 'AfwH8B/AfwH8B/AfwH8B',
+  'AfwH8B/AfwH8B/AfwH8B', 'AfwH8B/AfwH8B/AfwH8B'
+];
+
+
+const drawing_Checkerboard8x8 = [
+  '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/',
+  '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/',
+  '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/', 'AP8A/wD/AP8A/wD/AP8A',
+  'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A',
+  'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A',
+  'AP8A/wD/AP8A/wD/AP8A', '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/',
+  '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/',
+  '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/',
+  'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A',
+  'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A',
+  'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A', '/wD/AP8A/wD/AP8A/wD/',
+  '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/',
+  '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/',
+  '/wD/AP8A/wD/AP8A/wD/', 'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A',
+  'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A',
+  'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A',
+  '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/',
+  '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/',
+  '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/', 'AP8A/wD/AP8A/wD/AP8A',
+  'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A',
+  'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A',
+  'AP8A/wD/AP8A/wD/AP8A', '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/',
+  '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/',
+  '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/', '/wD/AP8A/wD/AP8A/wD/',
+  'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A',
+  'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A',
+  'AP8A/wD/AP8A/wD/AP8A', 'AP8A/wD/AP8A/wD/AP8A'
+];
+
+
+const drawing_Checkerboard9x9 = [
+  '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4',
+  '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4',
+  '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4',
+  'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH',
+  'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH',
+  'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH',
+  '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4',
+  '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4',
+  '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4',
+  'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH',
+  'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH',
+  'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH',
+  '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4',
+  '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4',
+  '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4',
+  'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH',
+  'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH',
+  'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH',
+  '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4',
+  '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4',
+  '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4',
+  'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH',
+  'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH',
+  'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH', 'AH/AH/AH/AH/AH/AH/AH',
+  '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4',
+  '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4',
+  '/4A/4A/4A/4A/4A/4A/4', '/4A/4A/4A/4A/4A/4A/4'
+];
+
+
+function toArrayOfArrays(drawing) {
+  return drawing.map(line => line.split('').map(x => Number(x)));
+}
+
+
+function toEncoded(drawing) {
+  const arr = toArrayOfArrays(drawing);
+  return arr.map(lineArray => ArrayEncode(lineArray));
+}
+
+
+module.exports = [
+    drawing_Checkerboard1x1, drawing_Checkerboard2x2,
+    drawing_Checkerboard3x3, drawing_Checkerboard4x4,
+    drawing_Checkerboard5x5, drawing_Checkerboard6x6,
+    drawing_Checkerboard7x7, drawing_Checkerboard8x8,
+    drawing_Checkerboard9x9, drawing_TULSA
+];
