@@ -57,7 +57,7 @@ const AppInit = () => {
   on(dock.shareButton, 'click', e => {
     const data = ExtractCanvasData(dock, state);
     console.log(data);
-    const ws = new WebSocket('ws://192.168.1.101:8081/ws');
+    const ws = new WebSocket('ws://192.168.25.101:8081/ws');
     ws.onopen = () => {
       ws.send(JSON.stringify(data));
     };
