@@ -4,7 +4,7 @@ This program provides a user-friendly interface for creating drawings and commun
 
 ## Protocol
 
-This app expects to see the water wall server expose a websocket at `ws://192.168.25.101/ws`. When the user requests transmission of their drawing to the server, this program will build an array of arrays representing the image. Each subarray represents a single row; each boolean element of the row arrays represents the value of that column (`true` if water should be present and `false` otherwise). It then converts this array to a string with `JSON.stringify()` and transmits to the websocket.
+This app expects to see the water wall server expose a websocket at `ws://192.168.25.101:8081/ws`. When the user requests transmission of their drawing to the server, this program will build an array of arrays representing the image. Each subarray represents a single row; each boolean element of the row arrays represents the value of that column (`true` if water should be present and `false` otherwise). It then converts this array to a string with `JSON.stringify()` and transmits to the websocket.
 
 ## Overview
 
