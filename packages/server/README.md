@@ -16,3 +16,14 @@ When communicating with the Arduino, this program uses stele-style packets at 11
 | Server | begin-drawing | 1 | The arduino will clear and prepare the drawing buffer for a new drawing. |
 | Server | line | [base64-encoded binary data] | This will be a base64 string encoding 120 bits (15 bytes). The Arduino will unpack and store as a row in the current drawing buffer. Each bit of the decoded sequence corresponds to a single solenoid (0 for off, 1 for on). A drawing requires 80 such lines to be transmitted. |
 | Server | publish-drawing | 1 | Finalize the drawing buffer and then begin rendering it to the wall. This will result in a response of  `{rx-ready:0}` as the arduino will be focused on wall timing. |
+
+## Overview
+
+For most of these files, in addition to the `*.js` file there is a `*.test.js` file. These are the Jest test suites for their similarly-named partner files.
+
+* `index.js`: the main app entry point, starting the websocket server, initializing the WaterWall object, and correctly responding to incoming client requests.
+* `ArrayEncode.js`: provides a function to transform the array-of-arrays-of-booleans from a client to an array of base64-encoded lines.
+* `DefaultDrawings.js`: contains functions to convert drawings from 120x80 PNG files in the `drawings/` folder to arrays of base64-encoded lines, suitable for rendering directly to the wall.
+* `SmmParser.js`: a Transform stream that parses stele-style packets. Intended to be used with the `serialport` library as a parser.
+* `WaterWall.js`: a class that manages the water wall's underlying Arduino in an abstract way, exposing mostly just the ability to add to the drawing queue.
+* `arduino.js`: a class that manages Arduinos communicating via USB serial with stele packets.
