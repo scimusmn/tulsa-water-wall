@@ -1,3 +1,13 @@
+/*********************************
+ *
+ * Water Wall client
+ *
+ * This server simply serves the contents of public/
+ * to http://localhost:3000
+ *
+ *********************************/
+
+
 const express = require('express');
 
 const app = express();
