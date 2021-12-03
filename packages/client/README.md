@@ -19,3 +19,5 @@ Here is a brief description of the contents of each file:
 * `index.html`: the main HTML page.
 
 The `images/` folder contains the various SVG files needed to render the buttons, and the `css/` folder contains both the main stylesheet as well as the required fonts.
+
+[stele]: https://github.com/scimusmn/stele
