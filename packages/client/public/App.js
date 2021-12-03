@@ -15,31 +15,45 @@ const AppInit = () => {
   dock.canvas.height = height;
   
 
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  //
   // register event listeners
+  //
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  // helper function to avoid forgetting to AppUpdate() after each event
   const on = (element, event, cb) => element.addEventListener(event, e => { cb(e); AppUpdate(); });
 
+  // the mouse is only "down" if you click on the canvas
   on(dock.canvas, 'mousedown', e => setState({mouse: { down: true }}));
+  // but it can go "up" anywhere, in order to avoid awkwardly having drawings
+  // stop working when you try to draw near the edge of the screen.
   on(document, 'mouseup', e => setState({mouse: { down: false }}));
+  // register mouse movement over the canvas
   on(dock.canvas, 'mousemove', e => {
     setState({
       mouse: { position: { x: e.offsetX, y: e.offsetY } }
     })
   });
 
+  // draw/erase button events
   on(dock.drawButton, 'click', e => setState({ erasing: false }));
   on(dock.eraseButton, 'click', e => setState({ erasing: true }));
 
+  // briefly flash a button as selected
   const flash = button => {
     select(button);
     window.setTimeout(() => deselect(button), 100);
   }
-  
+
+  // undo button
   on(dock.undoButton, 'click', e => {
     const { lines } = state;
     setState({ lines: lines.slice(0, -1) });
     flash(dock.undoButton);
   });
 
+  // flip button
   on(dock.flipButton, 'click', e => {
     const { flipped } = state;
     setState({ flipped: !flipped });
@@ -49,18 +63,23 @@ const AppInit = () => {
       select(dock.flipButton);
   });
 
+  // clear button
   on(dock.clearButton, 'click', e => {
     setState({ lines: [], erasing: false, flipped: false });
     flash(dock.clearButton);
   });
 
+  // share button
   on(dock.shareButton, 'click', e => {
+    // get the array-of-arrays-of-bools from the canvas
     const data = ExtractCanvasData(dock, state);
-    console.log(data);
     const ws = new WebSocket('ws://192.168.25.101:8081/ws');
     ws.onopen = () => {
+      // transmit array-of-arrays to the server.
       ws.send(JSON.stringify(data));
     };
+    // display the sharing overlay for a brief moment,
+    // in order to prevent spamming the share button
     setState({ sharing: true });
     window.setTimeout(
       () => setState({ sharing: false }), 5000
@@ -89,6 +108,8 @@ const AppInit = () => {
   });
 }  
 
+
+
 const AppUpdate = () => {
   let update;
   
@@ -97,19 +118,19 @@ const AppUpdate = () => {
   const { x, y } = position;
 
   if (down) {
-    if (line.points.length === 0) {
+    if (line.points.length === 0) { // a new line is just starting
       update = {
 	line: { negative: erasing, points: [{x, y}, {x, y}] },
       };
     }
-    else {
+    else { // we're already drawing a line
       update = {
 	line: { points: [...(line.points), {x, y}] }
       };
     }
   }
   else {
-    if (line.points.length !== 0) {
+    if (line.points.length !== 0) { // we just finished a line
       const { negative, points } = line;
       update = {
 	line: { points: [] },
@@ -118,8 +139,11 @@ const AppUpdate = () => {
     }
   }
 
+  // update the state based on our drawing changes.
   if (update)
     setState(update);
 }
 
+
+// run AppInit() when we first load
 window.onload = () => AppInit();

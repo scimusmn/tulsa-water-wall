@@ -6,7 +6,7 @@ function load_dom() {
   dock.mainContent = $('main-content');
   
   dock.canvas = $('drawing-canvas');
-  dock.ctx = dock.canvas.getContext('2d');
+  dock.ctx = dock.canvas.getContext('2d'); // canvas drawing context
 
   dock.drawButton = $('button-draw');
   dock.eraseButton = $('button-erase');
@@ -26,6 +26,8 @@ function deselect(button) {
   button.classList.remove('selected');
 }
 
+
+// render the draw/erase buttons
 const RenderLeftButtons = (dock, state) => {
   const { drawButton, eraseButton } = dock;
   const { erasing } = state;
@@ -41,6 +43,8 @@ const RenderLeftButtons = (dock, state) => {
 }
 
 
+// render the flip and sharing buttons
+// (undo and clear are de/selected directly by their event handlers)
 const RenderRightButtons = (dock, state) => {
   const { flipButton, shareButton } = dock;
   const { flipped, sharing } = state;
@@ -57,6 +61,7 @@ const RenderRightButtons = (dock, state) => {
 }
 
 
+// show/hide the sharing overlay and blur
 const RenderOverlay = (dock, state) => {
   const { sharingOverlay, mainContent } = dock;
   const { sharing } = state;
